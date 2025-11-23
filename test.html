@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+/* SUMÁRIO (sidebar fina) */
+.summary {
+    width: 220px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 40px 20px;
+    height: 100vh;
+    border-right: 1px solid #eee;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Links do sumário */
+.summary a {
+    text-decoration: none;
+    font-size: 15px;
+    color: #555;
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: .2s;
+}
+
+/* Hover suave */
+.summary a:hover {
+    background: #f0f0f0;
+}
+
+/* Marcado automaticamente (scrollspy) */
+.summary a.active {
+    background: #e9d5ff;      /* roxo claro */
+    color: #6a0dad;            /* roxo */
+    font-weight: bold;
+}
+
+/* Conteúdo da página */
+.page {
+    margin-left: 240px;
+    padding: 40px;
+    width: 100%;
+}
+
+/* Seções grandes só para exemplo */
+section {
+    height: 600px;
+    padding-top: 20px;
+}
+
+</style>
+
+<body>
+    <div class="summary">
+    <a href="#sec1">Introdução</a>
+    <a href="#sec2">Vantagens</a>
+    <a href="#sec3">Como Funciona</a>
+    <a href="#sec4">Exemplos</a>
+</div>
+
+<div class="page">
+    <section id="sec1"><h1>Introdução</h1></section>
+    <section id="sec2"><h1>Vantagens</h1></section>
+    <section id="sec3"><h1>Como Funciona</h1></section>
+    <section id="sec4"><h1>Exemplos</h1></section>
+</div>
+
+</body>
+
+<script>
+const sections = document.querySelectorAll("section");
+const links = document.querySelectorAll(".summary a");
+
+window.addEventListener("scroll", () => {
+    let atual = "";
+
+    sections.forEach(sec => {
+        const top = window.scrollY;
+        const offset = sec.offsetTop - 150;
+        const height = sec.offsetHeight;
+
+        if (top >= offset && top < offset + height) {
+            atual = sec.getAttribute("id");
+        }
+    });
+
+    links.forEach(a => {
+        a.classList.remove("active");
+        if (a.getAttribute("href") === "#" + atual) {
+            a.classList.add("active");
+        }
+    });
+});
+</script>
+
+
+</html>

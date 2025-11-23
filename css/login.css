@@ -1,0 +1,197 @@
+body {
+    /* background-color: var(--cor-fundo1); */
+
+     background: var(--cor-loja);
+
+    /* background: linear-gradient(135deg, #0f1b2d 0%, #1f385f 40%, #3a5bd5 100%); */
+
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+
+    form {
+
+        display: flex;
+        flex-direction: column;
+
+        /* text-align: center; */
+        /* border: 1px solid #ccc; */
+
+        padding: 40px;
+        height: 400px;
+
+        span {
+            text-align: center;
+            color: var(--cor-texto1);
+
+            font-size: 50px;
+
+            margin-bottom: 30px;
+
+            font-family: "Raleway", sans-serif;
+        }
+
+        label {
+
+            display: flex;
+            align-items: center;
+
+            width: 450px;
+
+            margin: 10px 0px;
+            font-size: 20px;
+
+            border-radius: 8px;
+
+            color: var(--cor-texto1);
+
+            background: linear-gradient(to right, #1553F2, #164EE9);
+
+            /* background-color: var(--cor-fundo1); */
+            border: 2px solid var(--cor-fundo2);
+
+            outline: none;
+            cursor: pointer;
+
+            &:focus {
+                border: 2px solid var(--cor-fundo2);
+            }
+
+            i {
+                color: var(--cor-borda2);
+                margin-left: 20px;
+            }
+
+            input {
+
+                width: 90%;
+
+
+                padding: 17px;
+                font-size: 15px;
+
+                color: var(--cor-texto1);
+
+                background: transparent;
+                border: none;
+                outline: none;
+
+                &::placeholder {
+                    color: var(--cor-borda2);
+                }
+
+                &:-webkit-autofill {
+                    -webkit-text-fill-color: #fff !important;
+
+                    box-shadow: 0 0 0 1000px var(--cor-fundo2) inset !important;
+
+                    border: none;
+                    border-radius: 0px;
+
+                }
+
+            }
+        }
+
+
+        button {
+            background-color: var(--cor-texto1);
+
+            width: 450px;
+            padding: 17px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+
+            color: var(--cor-fundo1);
+
+            border: none;
+            outline: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--cor-alternativo);
+            }
+        }
+    }
+
+}
+
+#error {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 600px) {
+
+    .form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 100vh;
+
+        form {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            /* text-align: center; */
+
+            h1 {
+                text-align: center;
+                color: var(--cor-texto1);
+
+                font-size: 50px;
+
+                margin-bottom: 30px;
+            }
+
+            input {
+
+                width: 350px;
+                padding: 17px;
+                margin: 10px 0px;
+
+                font-size: 16px;
+
+                border-radius: 8px;
+
+                color: var(--cor-texto1);
+                background-color: var(--cor-fundo1);
+                border: 2px solid var(--cor-fundo2);
+
+                outline: none;
+
+                &:focus {
+                    border: 2px solid var(--cor-btn2);
+                }
+            }
+
+            button {
+                background-color: var(--cor-texto1);
+
+                width: 350px;
+                padding: 17px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+
+                color: var(--cor-fundo1);
+
+                border: none;
+                outline: none;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--cor-alternativo);
+                }
+            }
+        }
+
+    }
+}
