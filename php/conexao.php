@@ -2,7 +2,8 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db   = "sua_loja";
+$db = "loja_virtual";
+
 
 $conn = new mysqli($host, $user, $pass, $db);
 

@@ -8,8 +8,8 @@ $result = $conn->query($sql);
 $produtos = [];
 
 while ($p = $result->fetch_assoc()) {
-    $p['imagem'] = "img/" . $p['imagem']; // caminho correto sem mudar pastas
     $produtos[] = $p;
 }
 
 echo json_encode($produtos);
+?>

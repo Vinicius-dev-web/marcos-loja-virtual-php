@@ -131,38 +131,40 @@
 
             <h1>Produtos</h1>
 
-            <div class="cards-prods" id="cards-prods"></div>
+            <div id="lista-produtos" class="lista-produtos"></div>
+
 
             <script>
                 async function carregarProdutos() {
-                    const resposta = await fetch("getProdutos.php");
+                    const resposta = await fetch("../php/getProdutos.php");
                     const produtos = await resposta.json();
 
                     let html = "";
 
                     produtos.forEach(p => {
                         html += `
-        <div class="card">
-            <img src="${p.imagem}" alt="Produto">
+            <div class="card">
+                <img src="../php/${p.imagem}" alt="Produto">
 
-            <h3>${p.nome}</h3>
+                <h3>${p.nome}</h3>
 
-            <p class="preco">R$ ${Number(p.preco).toFixed(2).replace(".", ",")}</p>
+                <p class="preco">R$ ${Number(p.preco).toFixed(2).replace(".", ",")}</p>
 
-            <button class="btn-comprar" 
-                data-produto="${p.nome}" 
-                data-preco="${p.preco}" 
-                data-imagem="${p.imagem}">
-                Adicionar ao Carrinho
-            </button>
-        </div>
+                <button class="btn-comprar" 
+                    data-produto="${p.nome}" 
+                    data-preco="${p.preco}" 
+                    data-imagem="${p.imagem}">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
         `;
                     });
 
-                    document.getElementById("cards-prods").innerHTML = html;
+                    document.getElementById("lista-produtos").innerHTML = html;
                 }
 
                 carregarProdutos();
+
             </script>
 
 
@@ -180,6 +182,8 @@
     <script src="js/links.js"></script>
     <!-- <script src="js/search.js"></script> -->
     <script src="js/produtos.js"></script>
+    <script src="js/pegarProduto.js"></script>
+
 
 </body>
 
