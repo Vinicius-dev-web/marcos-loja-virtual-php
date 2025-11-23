@@ -1,3 +1,18 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+session_start();
+
+$erro = $_SESSION['erro_login'] ?? "";
+$msg_cadastro = $_SESSION['msg_cadastro'] ?? "";
+
+unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -54,10 +69,11 @@
 
         </div>
 
-        <div class="logout" id="logout" onclick="logout()">
+        <div class="logout" id="logout" onclick="window.location.href='php/logout.php'">
             <i class="bi bi-box-arrow-right"></i>
             <span>SAIR</span>
         </div>
+
 
     </div>
 
@@ -138,7 +154,7 @@
 
                         <input type="file" name="imagem" accept="image/*" required hidden>
                     </label>
-                    
+
                     <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
 
                     <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6" required>
@@ -152,32 +168,37 @@
         <!-- resto das sections (users, cog, loja) fica igual ao que você já tinha -->
 
         <section class="users" id="users">
+
             <div class="form-div">
-                <form action="">
-                    <label for="file" id="file-user">
-                        <i class="bi bi-person-bounding-box"></i>
-                        <span>Adicione um perfil</span>
-                        <input type="file" name="" id="file" hidden>
+
+                <form method="POST" action="php/cadastroCliente.php">
+
+                    <label for="nome">
+                        <i class="bi bi-person"></i>
+                        <input type="text" name="nome" id="nome" placeholder="Nome" required>
                     </label>
 
-                    <input type="text" name="nome_usuario" id="name-user" placeholder="Nome do funcionário" required>
+                    <label for="email">
+                        <i class="bi bi-envelope"></i>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                    </label>
 
-                    <input type="tel" name="" id="email-user" placeholder="Email do usuário" required>
+                    <label for="senha">
+                        <i class="bi bi-key"></i>
+                        <input type="password" name="senha" id="senha" placeholder="Senha" required>
+                    </label>
 
-                    <input type="password" name="" id="pwr-user" placeholder="Senha" required>
-
-                    <input type="tel" name="" id="tel-user" placeholder="Número de telefone (opcional)">
-
-                    <input type="text" name="" id="date-user" placeholder="Data de nascimento (opcional)">
-
-                    <button type="button" class="submit" id="submit">Criar</button>
+                    <button type="submit"><b>CADASTRAR</b></button>
+                    <div id="msg" style="color: green;"><b><?php echo $msg_cadastro; ?></b></div>
 
                 </form>
             </div>
         </section>
 
         <section class="cog" id="cog">
+            
             <div class="form-div">
+
                 <form action="">
                     <label for="file" id="file-cog">
                         <i class="bi bi-building-gear"></i>
@@ -190,6 +211,14 @@
 
                     <button class="submit" id="submit">Salvar</button>
                 </form>
+
+                <form action="php/excluirConta.php" method="POST"
+                    onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita!')">
+                    <button id="deleteAccount" type="submit">
+                        Excluir conta
+                    </button>
+                </form>
+
             </div>
         </section>
 
@@ -212,7 +241,7 @@
     <div class="edit-produto-table" id="edit-produto-table">
 
         <div class="edit-table">
-            
+
             <div class="form">
                 <input type="hidden" id="edit-id">
                 <label>Nome do produto</label>
@@ -237,11 +266,11 @@
 
 </body>
 
-<script>
+<!-- <script>
     function logout() {
-        location.href = "login.html";
+        location.href = "login.php";
     }
-</script>
+</script> -->
 
 <script src="js/painel.js"></script>
 <script src="js/datas.js"></script>

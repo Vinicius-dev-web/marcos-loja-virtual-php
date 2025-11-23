@@ -3,12 +3,28 @@ body {
     overflow-x: hidden;
 }
 
-.page section {
-    display: none;
+#deleteAccount {
+    background: red;
+    color: white;
+
+    padding: 10px;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 10px;
+    
+    width: 100px;
+    
+    cursor: pointer;
 }
 
-.page section.active {
-    display: block;
+.page section {
+    display: none;
+
+    &.active {
+        display: block;
+    }
 }
 
 .toggle-theme-btn {
@@ -25,19 +41,20 @@ body {
     display: flex;
     justify-content: space-between;
 
-}
+    &:hover {
 
-.toggle-theme-btn:hover {
-
-    /* background: var(--cor-borda2); */
-    i {
-        color: var(--cor-laranja2);
+        /* background: var(--cor-borda2); */
+        i {
+            color: var(--cor-laranja2);
+        }
     }
 }
+
 
 .form-div {
     display: flex;
     justify-content: center;
+    align-items: center;
 
     form {
         display: flex;
@@ -49,7 +66,7 @@ body {
             width: 100%;
 
             border-radius: 12px;
-            border: 1px dashed var(--cor-borda2);
+            border: 1px solid var(--cor-borda2);
             color: var(--cor-borda2);
 
             cursor: pointer;
@@ -223,7 +240,7 @@ nav {
         display: flex;
         flex-direction: column;
 
-        span{
+        span {
             color: var(--cor-borda2);
         }
     }
@@ -380,7 +397,7 @@ main {
     }
 
     .create {
-        
+
         .form-div {
             display: flex;
             flex-direction: column;
@@ -452,34 +469,53 @@ main {
         .form-div {
             display: flex;
             justify-content: center;
+            align-items: center;
 
             form {
                 display: flex;
-                /* flex-direction: column; */
                 flex-wrap: wrap;
                 width: 70%;
 
                 label {
                     display: flex;
-                    flex-direction: column;
                     align-items: center;
 
-                    padding: 80px;
+                    padding: 10px;
                     margin-bottom: 30px;
+                    border-radius: 5px;
 
                     i {
-                        font-size: 100px;
+                        font-size: 30px;
                     }
 
-                    &:hover {
-                        /* background-color: var(--cor-borda1); */
-                        border: 1px solid var(--cor-borda2);
+                    input {
+
+                        width: 100%;
+                        padding: 10px;
+                        margin: 5px 0px;
+
+                        color: var(--cor-texto1);
+                        background-color: var(--cor-fundo3);
+
+                        border: 1px solid transparent;
+                        border-radius: 5px;
+
+                        outline: none;
+
+                        &:hover {
+                            border: 1px solid transparent;
+                        }
+
+                        &:focus {
+                            border: 1px solid transparent;
+                            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                        }
                     }
+
                 }
 
-                input,
                 button {
-
+                    cursor: pointer;
                     width: 100%;
                     padding: 20px;
                     margin: 5px 0px;
@@ -489,21 +525,6 @@ main {
 
                     border: 1px solid var(--cor-borda2);
                     border-radius: 5px;
-
-                    outline: none;
-
-                    &:hover {
-                        border: 1px solid var(--cor-fundo6);
-                    }
-
-                    &:focus {
-                        border: 1px solid var(--cor-fundo6);
-                        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-                    }
-                }
-
-                button {
-                    cursor: pointer;
 
                     &:hover {
                         background-color: var(--cor-fundo1);
@@ -546,6 +567,7 @@ main {
 
         .form-div {
             display: flex;
+            flex-direction: column;
             justify-content: center;
 
             form {
@@ -616,7 +638,7 @@ main {
             justify-content: center;
             align-items: center;
 
-            span{
+            span {
                 width: 50%;
                 margin: 20px 0px;
                 color: var(--cor-terciárias);
