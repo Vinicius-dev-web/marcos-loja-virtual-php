@@ -78,7 +78,7 @@
 
     </nav>
 
-    <main class="pages">
+    <main class="page">
 
         <section class="produtos" id="produtos">
 
@@ -97,7 +97,6 @@
 
                     <tbody>
                         <?php
-                        // AGORA O CAMINHO ESTÁ CERTO
                         require "php/conexao.php";
 
                         $sql = "SELECT * FROM produtos ORDER BY id DESC";
@@ -161,13 +160,18 @@
                         <input type="file" name="" id="file" hidden>
                     </label>
 
-                    <input type="text" name="" id="name-user" placeholder="Nome do funcionário" required>
+                    <input type="text" name="nome_usuario" id="name-user" placeholder="Nome do funcionário" required>
+
                     <input type="tel" name="" id="email-user" placeholder="Email do usuário" required>
+
                     <input type="password" name="" id="pwr-user" placeholder="Senha" required>
+
                     <input type="tel" name="" id="tel-user" placeholder="Número de telefone (opcional)">
+
                     <input type="text" name="" id="date-user" placeholder="Data de nascimento (opcional)">
 
-                    <button class="submit" id="submit">Criar</button>
+                    <button type="button" class="submit" id="submit">Criar</button>
+
                 </form>
             </div>
         </section>
@@ -191,8 +195,10 @@
 
         <section class="loja" id="loja">
             <div class="msg" id="msg">
+
                 <h1>Você está acessando a loja...</h1>
-                <span>Verifique se outra aba está aberta no seu navegador.</span>
+                <span>Verifique se outra aba está aberta no seu navegador. Caso não esteja, considere como um erro técnico ou que os arquivos ainda estejam sendo enviados ao servidor.</span>
+
                 <img src="https://png.pngtree.com/png-clipart/20190120/ourmid/pngtree-go-to-bed-sleeping-pig-piggy-pig-sleeping-png-image_493040.png"
                     alt="error">
             </div>
@@ -228,8 +234,6 @@
 <script src="js/datas.js"></script>
 <script src="js/editTable.js"></script>
 <script src="js/links.js"></script>
-<!-- se não existir js/cadastroProduto.js, pode remover a linha abaixo -->
-<!-- <script src="js/cadastroProduto.js"></script> -->
 
 <script>
     function loja() {
@@ -238,7 +242,9 @@
 </script>
 
 <!-- TEMA / MODO CLARO/ESCURO -->
+
 <script>
+
     function updateIcon(theme) {
         const icon = document.getElementById("themeIcon");
         if (!icon) return;
