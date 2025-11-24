@@ -1,41 +1,73 @@
 <?php
 session_start();
-require 'conexao_login.php';
+require __DIR__ . '/conexao_login.php'; // caminho seguro
 
 $erro = "";
 
 // Verifica se o formulário foi enviado
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $sql = "SELECT * FROM usuarios WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $email = trim($_POST['email']);
+    $senha = trim($_POST['senha']);
 
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
-        if (password_verify($senha, $user['senha'])) {
-            $_SESSION['usuario'] = $user['nome'];
-            $_SESSION['usuario_id'] = $user['id']; 
-            $stmt->close();
-            $conn->close();
-            header("Location: ../painel.php"); // Redireciona para painel
-            exit;
-        } else {
-            $erro = "Senha incorreta!";
-        }
+    if (empty($email) || empty($senha)) {
+        $erro = "Preencha todos os campos!";
     } else {
-        $erro = "Email não cadastrado!";
+
+        // Busca usuário pelo email
+        $sql = "SELECT id, nome, email, senha, role FROM usuarios WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt) {
+
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Achou usuário
+            if ($result->num_rows === 1) {
+
+                $user = $result->fetch_assoc();
+
+                // Verifica senha
+                if (password_verify($senha, $user['senha'])) {
+
+                    // Salva a sessão
+                    $_SESSION['usuario'] = $user['nome'];
+                    $_SESSION['usuario_id'] = $user['id'];
+                    $_SESSION['role'] = $user['role'] ?: 'user';
+
+                    // Libera recursos
+                    $stmt->close();
+                    $conn->close();
+
+                    // Redireciona conforme a role
+                    if ($_SESSION['role'] === 'admin') {
+                        header("Location: ../adminMasterPanel.php");
+                        exit;
+                    }
+
+                    header("Location: ../painel.php");
+                    exit;
+
+                } else {
+                    $erro = "Senha incorreta!";
+                }
+
+            } else {
+                $erro = "Email não cadastrado!";
+            }
+
+            $stmt->close();
+        } else {
+            $erro = "Erro interno ao consultar o banco!";
+        }
     }
 
-    $stmt->close();
     $conn->close();
 }
 
-// Redireciona de volta para login.php apenas se houver erro
+// Se ocorrer erro, volta para o login
 if (!empty($erro)) {
     $_SESSION['erro_login'] = $erro;
     header("Location: ../login.php");

@@ -57,6 +57,10 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     <i class="bi bi-cart3"></i>
                     <span>PEDIDOS</span>
                 </li>
+                <li data-target="msg-sec">
+                    <i class="bi bi-chat-right-text"></i>
+                    <span>CHAT</span>
+                </li>
                 <li data-target="users">
                     <i class="bi bi-people"></i>
                     <span>USUÁRIOS</span>
@@ -84,8 +88,8 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
     <nav class="main-content">
 
         <div class="adm-info-up">
-            <h2>Marcos</h2>
-            <span>Administrador</span>
+            <h2><?php echo $_SESSION['usuario']; ?></h2>
+            <span>Painel de controle</span>
         </div>
 
         <div class="info-now-up">
@@ -117,7 +121,9 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                         <?php
                         require "php/conexao.php";
 
-                        $sql = "SELECT * FROM produtos ORDER BY id DESC";
+                        $usuario_id = $_SESSION['usuario_id'];
+                        $sql = "SELECT * FROM produtos WHERE usuario_id = $usuario_id ORDER BY id DESC";
+
                         $result = $conn->query($sql);
 
                         if ($result && $result->num_rows > 0) {
@@ -170,52 +176,8 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
         </section>
 
         <section class="orders" id="orders">
-
-            <ul class="painel-order" id="painel-order">
-
-                <li class="profile-order" data-target="msg-sec">
-    
-                    <div class="profile-order-card">
-    
-                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                            alt="sem foto">
-    
-                        <h3>Vinicius</h3>
-    
-                    </div>
-    
-                    <div class="info-order-card">
-    
-                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
-    
-                    </div>
-    
-                </li>
-                <li class="profile-order" data-target="msg-sec">
-    
-                    <div class="profile-order-card">
-    
-                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
-                            alt="sem foto">
-    
-                        <h3>Vinicius</h3>
-    
-                    </div>
-    
-                    <div class="info-order-card">
-    
-                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
-    
-                    </div>
-    
-                </li>
-
-            </ul>
-
-
-            </div>
         </section>
-        
+
         <!-- <section class="orders" id="orders">
 
             <ul class="painel-order" id="painel-order">
@@ -276,7 +238,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
                     <label for="email">
                         <i class="bi bi-envelope"></i>
-                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <input type="email" name="email" id="email" placeholder="Email" value="@net" required>
                     </label>
 
                     <label for="senha">
@@ -335,7 +297,92 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
         </section>
 
         <section class="msg-sec" id="msg-sec">
-            <h1>Chat</h1>
+
+            <ul class="painel-msg" id="painel-msg">
+
+                <li class="profile-msg" data-target="chat-div">
+
+                    <div class="profile-msg-card">
+
+                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                            alt="sem foto">
+
+                        <h3>Vinicius</h3>
+
+                    </div>
+
+                    <div class="info-msg-card">
+
+                        <span class="info-msg-card" id="msg-msg-card">+1 mensagem</span>
+
+                    </div>
+
+                </li>
+                <li class="profile-msg" data-target="chat-div">
+
+                    <div class="profile-msg-card">
+
+                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                            alt="sem foto">
+
+                        <h3>Vinicius</h3>
+
+                    </div>
+
+                    <div class="info-msg-card">
+
+                        <span class="info-msg-card" id="msg-msg-card">+1 mensagem</span>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </section>
+
+        <section class="chat-div" id="chat-div">
+
+            <div class="chat-form">
+
+                <div class="info-cliente">
+
+                    <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                        alt="sem foto">
+                    <h1>Anônimo</h1>
+
+                </div>
+
+                <div class="msg-chat">
+                    <span>Cliente: Olá</span>
+                    <span>Cliente: Gostaria de saber qual o valor do Conjunto Baruk vermelho</span>
+                    <span>Cliente: Quanto custa?</span>
+                </div>
+
+                <div class="chat-commands" id="chat-commands">
+
+                    <div class="chat-commands-input" id="chat-commands-input">
+
+                        <label for="file-chat">
+
+                            <input type="file" name="" id="file-chat" hidden>
+
+                            <i class="bi bi-folder-symlink"></i>
+
+                        </label>
+
+                        <input type="text" name="" id="" placeholder="Fale com o cliente...">
+
+                        <button type="submit">Enviar</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            </div>
         </section>
 
     </main>
@@ -365,7 +412,6 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
         </div>
     </div>
 
-
 </body>
 
 <!-- <script>
@@ -378,6 +424,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 <script src="js/datas.js"></script>
 <script src="js/editTable.js"></script>
 <script src="js/links.js"></script>
+<!-- <script src="js/modais.js"></script> -->
 
 <script>
     function loja() {

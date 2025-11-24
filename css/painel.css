@@ -569,79 +569,6 @@ main {
         align-items: center;
 
 
-
-        .painel-order {
-            display: flex;
-            flex-wrap: wrap;
-
-            /* height: 100vh; */
-
-            padding: 20px;
-
-            background: var(--cor-loja);
-            border-radius: 10px;
-
-            .profile-order {
-                display: flex;
-                justify-content: space-between;
-
-                width: 250px;
-
-                padding: 10px;
-                margin: 5px 10px;
-
-                background-color: var(--cor-loja4);
-
-                /* border: 1px solid #ccc; */
-                border-radius: 10px;
-
-                cursor: pointer;
-
-                &:hover {
-                    background: var(--cor-borda2);
-                }
-
-                /* Foto e nome do cliente */
-
-                .profile-order-card {
-
-                    display: flex;
-                    align-items: center;
-
-                    img {
-                        width: 50px;
-                        border-radius: 100%;
-                        object-fit: cover;
-
-                        margin-right: 10px;
-                    }
-                }
-
-                /* Mensagens */
-
-                .info-order-card {
-
-                    display: flex;
-                    align-items: center;
-
-                    span {
-                        font-size: 12px;
-                        background-color: var(--cor-vermelho);
-
-                        padding: 5px;
-                        border-radius: 20px;
-                    }
-
-                    button {
-                        background-color: transparent;
-                        border: none;
-                        color: var(--cor-texto1);
-                        font-size: 20px;
-                    }
-                }
-            }
-
-        }
     }
 
     .cog {
@@ -723,6 +650,181 @@ main {
                 width: 50%;
                 margin: 20px 0px;
                 color: var(--cor-terciárias);
+            }
+        }
+    }
+
+    .msg-sec {
+        justify-content: center;
+
+        .painel-msg {
+            display: flex;
+            flex-wrap: wrap;
+
+            /* height: 100vh; */
+
+            padding: 20px;
+
+            background: var(--cor-loja);
+            border-radius: 10px;
+
+            .profile-msg {
+                display: flex;
+                justify-content: space-between;
+
+                width: 250px;
+
+                padding: 10px;
+                margin: 5px 10px;
+
+                background-color: var(--cor-loja4);
+
+                border-radius: 10px;
+
+                cursor: pointer;
+
+                &:hover {
+                    background: var(--cor-borda2);
+                }
+
+                /* Foto e nome do cliente */
+
+                .profile-msg-card {
+
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 50px;
+                        border-radius: 100%;
+                        object-fit: cover;
+
+                        margin-right: 10px;
+                    }
+                }
+
+                /* Mensagens */
+
+                .info-msg-card {
+
+                    display: flex;
+                    align-items: center;
+
+                    span {
+                        font-size: 12px;
+                        background-color: var(--cor-vermelho);
+
+                        padding: 5px;
+                        border-radius: 20px;
+                    }
+
+                    button {
+                        background-color: transparent;
+                        border: none;
+                        color: var(--cor-texto1);
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .chat-div {
+
+        overflow-y: hidden;
+
+        .info-cliente,
+        .chat-commands {
+            margin: 10px 0px;
+        }
+
+        .chat-form {
+            display: flex;
+            flex-direction: column;
+
+            padding: 10px;
+            height: 650px;
+
+            border-radius: 10px;
+            background: var(--cor-fundo7);
+
+        }
+
+        .info-cliente {
+
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 50px;
+                border-radius: 100%;
+                margin: 10px;
+            }
+        }
+
+        .msg-chat {
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 20px;
+            height: 100%;
+
+            border-radius: 10px;
+            background: var(--cor-fundo8);
+
+            word-wrap: break-word;
+
+            overflow-y: auto;
+
+            span{
+                margin: 5px 0px;
+            }
+
+            &::-webkit-scrollbar {
+                background: var(--cor-fundo7)
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--cor-borda);
+                border-radius: 10px;
+            }
+        }
+
+        .chat-commands {
+
+            background: var(--cor-fundo8);
+            border-radius: 10px;
+            padding: 10px;
+
+            .chat-commands-input {
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                /* border: 1px solid #ccc; */
+
+                padding: 0px 20px;
+                width: 100%;
+
+                label{
+                    cursor: pointer;
+                }
+
+                input {
+                    width: 100%;
+
+                    padding: 15px;
+                    margin: 0px 5px;
+
+                    color: var(--cor-texto1);
+                    background-color: transparent;
+
+                    border: none;
+                    outline: none;
+                }
             }
         }
     }

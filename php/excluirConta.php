@@ -10,13 +10,28 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $id = $_SESSION['usuario_id'];
 
-// Deleta o usuário do banco
+// 1. Buscar imagens dos produtos antes de excluir
+$sqlImgs = "SELECT imagem FROM produtos WHERE usuario_id = ?";
+$stmtImgs = $conn->prepare($sqlImgs);
+$stmtImgs->bind_param("i", $id);
+$stmtImgs->execute();
+$resultImgs = $stmtImgs->get_result();
+
+// Deleta os arquivos fisicamente
+while ($row = $resultImgs->fetch_assoc()) {
+    $caminho = "../" . $row['imagem'];
+    if (file_exists($caminho)) {
+        unlink($caminho);
+    }
+}
+$stmtImgs->close();
+
+// 2. Excluir o usuário (e o CASCADE apaga os produtos)
 $sql = "DELETE FROM usuarios WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
-    // Usuário removido → encerra a sessão
     session_unset();
     session_destroy();
     header("Location: ../login.php?conta_excluida=1");
