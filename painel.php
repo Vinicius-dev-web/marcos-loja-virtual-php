@@ -53,6 +53,10 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     <i class="bi bi-images"></i>
                     <span>PRODUTO</span>
                 </li>
+                <li data-target="orders">
+                    <i class="bi bi-cart3"></i>
+                    <span>PEDIDOS</span>
+                </li>
                 <li data-target="users">
                     <i class="bi bi-people"></i>
                     <span>USUÁRIOS</span>
@@ -62,7 +66,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     <span>EMPRESA</span>
                 </li>
                 <li data-target="loja" onclick="loja()">
-                    <i class="bi bi-basket3"></i>
+                    <i class="bi bi-arrow-bar-right"></i>
                     <span>Loja</span>
                 </li>
             </ul>
@@ -165,7 +169,99 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
             </div>
         </section>
 
-        <!-- resto das sections (users, cog, loja) fica igual ao que você já tinha -->
+        <section class="orders" id="orders">
+
+            <ul class="painel-order" id="painel-order">
+
+                <li class="profile-order" data-target="msg-sec">
+    
+                    <div class="profile-order-card">
+    
+                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                            alt="sem foto">
+    
+                        <h3>Vinicius</h3>
+    
+                    </div>
+    
+                    <div class="info-order-card">
+    
+                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
+    
+                    </div>
+    
+                </li>
+                <li class="profile-order" data-target="msg-sec">
+    
+                    <div class="profile-order-card">
+    
+                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                            alt="sem foto">
+    
+                        <h3>Vinicius</h3>
+    
+                    </div>
+    
+                    <div class="info-order-card">
+    
+                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
+    
+                    </div>
+    
+                </li>
+
+            </ul>
+
+
+            </div>
+        </section>
+        
+        <!-- <section class="orders" id="orders">
+
+            <ul class="painel-order" id="painel-order">
+
+                <li class="profile-order" data-target="msg-sec">
+    
+                    <div class="profile-order-card">
+    
+                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                            alt="sem foto">
+    
+                        <h3>Vinicius</h3>
+    
+                    </div>
+    
+                    <div class="info-order-card">
+    
+                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
+    
+                    </div>
+    
+                </li>
+                <li class="profile-order" data-target="msg-sec">
+    
+                    <div class="profile-order-card">
+    
+                        <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
+                            alt="sem foto">
+    
+                        <h3>Vinicius</h3>
+    
+                    </div>
+    
+                    <div class="info-order-card">
+    
+                        <span class="info-order-card" id="msg-order-card">+1 mensagem</span>
+    
+                    </div>
+    
+                </li>
+
+            </ul>
+
+
+            </div>
+        </section> -->
 
         <section class="users" id="users">
 
@@ -189,14 +285,16 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
                     </label>
 
                     <button type="submit"><b>CADASTRAR</b></button>
-                    <div id="msg" style="color: green;"><b><?php echo $msg_cadastro; ?></b></div>
+                    <div id="msg" style="color: green;"><b>
+                            <?php echo $msg_cadastro; ?>
+                        </b></div>
 
                 </form>
             </div>
         </section>
 
         <section class="cog" id="cog">
-            
+
             <div class="form-div">
 
                 <form action="">
@@ -234,6 +332,10 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
                 <button onclick="loja()">Tente esse</button>
             </div>
+        </section>
+
+        <section class="msg-sec" id="msg-sec">
+            <h1>Chat</h1>
         </section>
 
     </main>

@@ -1,12 +1,17 @@
 <?php
 require "conexao.php";
 
-$id = $_POST['id'];
+$id = $_GET['id'] ?? null;
 
-$sql = "DELETE FROM produtos WHERE id=$id";
-if($conn->query($sql)) {
-    echo "Produto excluído com sucesso!";
-} else {
-    echo "Erro: " . $conn->error;
+if (!$id) {
+    die("ID não recebido!");
 }
-?>
+
+$stmt = $conn->prepare("DELETE FROM produtos WHERE id = ?");
+$stmt->bind_param("i", $id);
+
+$stmt->execute();
+
+// Depois de excluir, volta para a página principal
+header("Location: ../painel.php");
+exit;

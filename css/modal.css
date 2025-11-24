@@ -1,9 +1,8 @@
-/* Modal aberto */
+
 .edit-produto-table.abrir {
     display: flex;
 }
 
-/* Modal fechado */
 .edit-produto-table {
     display: none;
     justify-content: center;
@@ -15,68 +14,66 @@
     bottom: 0;
     z-index: 999;
     background: rgba(0,0,0,0.4);
-}
+    
+    .edit-table {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    
+    form{
+        background-color: var(--cor-borda1);
+        border-radius: 12px;
+        padding: 20px;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
 
-/* Container interno do modal */
-.edit-produto-table .edit-table {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-/* Form do modal */
-.edit-produto-table .form {
-    background-color: var(--cor-borda1);
-    border-radius: 12px;
-    padding: 20px;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-}
-
-.edit-produto-table .form label {
-    margin-top: 10px;
-}
-
-.edit-produto-table .form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid var(--cor-borda1);
-    color: var(--cor-texto1);
-    background-color: var(--cor-fundo3);
-    outline: none;
-}
-
-.edit-produto-table .form input:hover,
-.edit-produto-table .form input:focus {
-    border: 1px solid var(--cor-borda2);
-}
-
-/* Botões Salvar/Cancelar/Excluir */
-.edit-produto-table .btn-edit-table {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-.edit-produto-table .btn-edit-table button,
-#delete-produto {
-    flex: 1;
-    margin: 0 5px;
-    padding: 10px;
-    border: 1px solid var(--cor-borda1);
-    cursor: pointer;
-    background-color: var(--cor-fundo3);
-    color: var(--cor-texto1);
-    border-radius: 5px;
-}
-
-.edit-produto-table .btn-edit-table button:hover,
-#delete-produto:hover {
-    background-color: var(--cor-terciárias);
-    color: var(--cor-texto1);
+        label {
+            margin-top: 10px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid var(--cor-borda1);
+            color: var(--cor-texto1);
+            background-color: var(--cor-fundo3);
+            outline: none;
+        }
+        
+        input:hover,
+        input:focus {
+            border: 1px solid var(--cor-borda2);
+        }
+    }
+    
+    
+    .btn-edit-table {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+    
+    .btn-edit-table button,
+    #delete-produto {
+        flex: 1;
+        margin: 0 5px;
+        padding: 10px;
+        border: 1px solid var(--cor-borda1);
+        cursor: pointer;
+        background-color: var(--cor-fundo3);
+        color: var(--cor-texto1);
+        border-radius: 5px;
+    }
+    
+    .btn-edit-table button:hover,
+    #delete-produto:hover {
+        background-color: var(--cor-terciárias);
+        color: var(--cor-texto1);
+    }
 }

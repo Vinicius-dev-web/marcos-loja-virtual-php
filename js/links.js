@@ -4,7 +4,7 @@ function admlogin() {
 
     if (inputS == "enter") {
 
-        location.href = "login.html"
+        location.href = "login.php"
 
     }
 }

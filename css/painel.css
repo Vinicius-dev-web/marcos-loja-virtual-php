@@ -13,9 +13,9 @@ body {
     border-radius: 5px;
 
     font-size: 10px;
-    
+
     width: 100px;
-    
+
     cursor: pointer;
 }
 
@@ -563,6 +563,87 @@ main {
         }
     }
 
+    .orders {
+
+        justify-content: center;
+        align-items: center;
+
+
+
+        .painel-order {
+            display: flex;
+            flex-wrap: wrap;
+
+            /* height: 100vh; */
+
+            padding: 20px;
+
+            background: var(--cor-loja);
+            border-radius: 10px;
+
+            .profile-order {
+                display: flex;
+                justify-content: space-between;
+
+                width: 250px;
+
+                padding: 10px;
+                margin: 5px 10px;
+
+                background-color: var(--cor-loja4);
+
+                /* border: 1px solid #ccc; */
+                border-radius: 10px;
+
+                cursor: pointer;
+
+                &:hover {
+                    background: var(--cor-borda2);
+                }
+
+                /* Foto e nome do cliente */
+
+                .profile-order-card {
+
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 50px;
+                        border-radius: 100%;
+                        object-fit: cover;
+
+                        margin-right: 10px;
+                    }
+                }
+
+                /* Mensagens */
+
+                .info-order-card {
+
+                    display: flex;
+                    align-items: center;
+
+                    span {
+                        font-size: 12px;
+                        background-color: var(--cor-vermelho);
+
+                        padding: 5px;
+                        border-radius: 20px;
+                    }
+
+                    button {
+                        background-color: transparent;
+                        border: none;
+                        color: var(--cor-texto1);
+                        font-size: 20px;
+                    }
+                }
+            }
+
+        }
+    }
+
     .cog {
 
         .form-div {
@@ -645,13 +726,4 @@ main {
             }
         }
     }
-
-
-
-
-    /* Modais */
-
-    /* Editar produto */
-
-    /* .edit-produto-table{} */
 }
