@@ -18,7 +18,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/loja.css">
+    <link rel="stylesheet" href="css/index.css">
 
     <title>Loja virtual</title>
 
