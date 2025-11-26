@@ -26,7 +26,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 
 <body>
 
-    <nav>
+    <nav class="nav">
 
         <span class="logo" id="logo">
             ne<span>xus</span>
@@ -112,9 +112,18 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
         <button class="btn-finalizar" id="btnFinalizar">Finalizar Pedido</button>
     </div>
 
-    <header>
-        <img src="https://files.tecnoblog.net/wp-content/uploads/2025/06/Capa-TBR-Eletronicos-de-Consumo-1060x596.png"
-            alt="Sem foto">
+    <header class="carrossel-container">
+
+        <div class="carrossel-track">
+
+            <img src="img/Banner Horizontal Black Friday Vibrante Preto e Vermelho.png" alt="">
+
+            <img src="img/Banner Black Friday fashion rosa e preto.png" alt="">
+
+            <img src="img/Banner para loja de eletrônicos computador desconto preto e vermelho.png" alt="">
+
+        </div>
+
     </header>
 
     <main class="page" id="page">
@@ -250,5 +259,35 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 <script src="js/links.js"></script>
 <script src="js/produtos.js"></script>
 <script src="js/pegarProduto.js"></script>
+
+<script>
+
+    const track = document.querySelector('.carrossel-track');
+    const slides = Array.from(track.children);
+    let index = 0;
+
+    function slideShow() {
+        index++;
+        if (index >= slides.length) index = 0;
+        track.style.transform = `translateX(-${index * 100}%)`; // 100% da largura do container
+    }
+
+    // Troca a cada 3 segundos
+    setInterval(slideShow, 3000);
+
+</script>
+
+<script>
+    window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".nav");
+
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+</script>
 
 </html>

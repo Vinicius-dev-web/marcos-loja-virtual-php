@@ -1,9 +1,9 @@
 async function carregarProdutos() {
-    const container = document.getElementById("cards-prods");
+    const container = document.getElementById("card");
     container.innerHTML = "<p>Carregando produtos...</p>";
 
     try {
-        const resposta = await fetch("listar_produtos.php");
+        const resposta = await fetch("lista_produtos.php");
         const produtos = await resposta.json();
 
         container.innerHTML = "";
