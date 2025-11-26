@@ -12,12 +12,15 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 // Conexão e pegar o slug da loja
 require "php/conexao.php";
 $usuario_id = $_SESSION['usuario_id'];
-$stmt = $conn->prepare("SELECT slug FROM lojas WHERE usuario_id = ?");
+$stmt = $conn->prepare("SELECT slug, imagem FROM lojas WHERE usuario_id = ?");
 $stmt->bind_param("i", $usuario_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $loja = $result->fetch_assoc();
+
 $slug_loja = $loja['slug'] ?? "";
+$imagem_loja = $loja['imagem'] ?? "";
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +51,15 @@ $slug_loja = $loja['slug'] ?? "";
 
         <div class="painel-info">
 
-            <h1>Painel</h1>
+            <?php if (!empty($imagem_loja)): ?>
+                <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+            <?php endif; ?>
+
+            <br>
+
+            <h2>
+                <?php echo $_SESSION['usuario']; ?>
+            </h2>
 
             <ul>
                 <li data-target="produtos">
@@ -73,11 +84,12 @@ $slug_loja = $loja['slug'] ?? "";
                 </li>
                 <li data-target="loja" id="menuLoja">
                     <i class="bi bi-arrow-up-right-square"></i>
-                    <span>Loja</span>
+                    <span>Minha Loja</span>
                 </li>
             </ul>
 
         </div>
+
 
         <div class="logout" id="logout" onclick="window.location.href='php/logout.php'">
             <i class="bi bi-box-arrow-right"></i>
@@ -89,10 +101,8 @@ $slug_loja = $loja['slug'] ?? "";
     <nav class="main-content">
 
         <div class="adm-info-up">
-            <h2>
-                <?php echo $_SESSION['usuario']; ?>
-            </h2>
-            <span>Painel de controle</span>
+            <h2>Painel de controle</h2>
+            <span>Administrativo</span>
         </div>
 
         <div class="info-now-up">

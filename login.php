@@ -34,7 +34,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 
         <!-- Formulário de Login -->
         <form method="POST" action="php/loginCliente.php">
-            <span>MarcosTech</span>
+            <span>Entrar</span>
 
             <label for="email">
                 <i class="bi bi-person"></i>
@@ -58,10 +58,10 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
                 <b><?php echo $msg_cadastro; ?></b><br>
 
                 <?php if (!empty($slug_loja)): ?>
-                    <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"
+                    <!-- <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"
                         style="color: blue; font-weight: bold;">
                         👉 Acessar sua loja
-                    </a>
+                    </a> -->
 
                 <?php endif; ?>
             </div>

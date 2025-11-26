@@ -27,7 +27,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/login.css">
 
-    <title>Cadastrar</title>
+    <title>Criar loja</title>
 </head>
 
 <body>
@@ -35,12 +35,25 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 
         <!-- Formulário de Login -->
 
-        <form method="POST" action="php/cadastroCliente.php">
-            <span>MarcosTech</span>
+        <form method="POST" action="php/cadastroCliente.php" enctype="multipart/form-data">
+
+            <span>Cadastrar loja</span>
+
+            <label for="image-register" id="image-register-label">
+
+                <input type="file" name="imagem" id="image-register" hidden required>
+
+                <div class="logo-image">
+
+                    <i class="bi bi-person"></i>
+
+                </div>
+
+            </label>
 
             <label for="nome">
                 <i class="bi bi-person"></i>
-                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="nome" placeholder="Empresa" required>
             </label>
 
             <label for="email">
@@ -57,7 +70,9 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
             <button type="button" onclick="window.location.href='login.php'"><b>ENTRAR</b></button>
 
             <div id="msg" style="color: green;">
-                <b><?php echo $msg_cadastro; ?></b><br>
+                <b>
+                    <?php echo $msg_cadastro; ?>
+                </b><br>
 
                 <?php if (!empty($slug_loja)): ?>
                     <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"

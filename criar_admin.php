@@ -1,8 +1,25 @@
 <?php
 session_start();
+require "php/conexao.php"; // <-- adiciona a conexão
+
 $erro = $_SESSION['erro_admin'] ?? "";
 $ok = $_SESSION['ok_admin'] ?? "";
 unset($_SESSION['erro_admin'], $_SESSION['ok_admin']);
+
+// Verifica se a tabela admins existe
+$check = $conn->query("SHOW TABLES LIKE 'admins'");
+if ($check->num_rows == 0) {
+    // Cria automaticamente (sem quebrar nada)
+    $conn->query("
+        CREATE TABLE admins (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(100) NOT NULL,
+            email VARCHAR(150) NOT NULL UNIQUE,
+            senha VARCHAR(255) NOT NULL,
+            criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ");
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

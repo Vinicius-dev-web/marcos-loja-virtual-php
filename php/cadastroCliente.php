@@ -1,15 +1,13 @@
 <?php
-session_start();  // sempre no topo
-
+session_start();
 require 'conexao_login.php';
 
 $msg = "";
 
-// Verifica se o formulário foi enviado
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
+    $nome = trim($_POST['nome']);
+    $email = trim($_POST['email']);
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
     // 1. Cadastrar usuário
@@ -19,13 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
 
-        // PEGAR O ID DO NOVO USUÁRIO
         $usuario_id = $conn->insert_id;
 
-        // 2. Gerar slug da loja a partir do nome do usuário
+        // Gerar slug
         $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $nome));
 
-        // Evitar slug duplicado — acrescenta número se já existir
+        // Evitar slug duplicado
         $checkSlug = $conn->prepare("SELECT id FROM lojas WHERE slug = ?");
         $checkSlug->bind_param("s", $slug);
         $checkSlug->execute();
@@ -35,15 +32,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $slug .= "-" . $usuario_id;
         }
 
-        // 3. Criar loja automaticamente
-        $sqlLoja = "INSERT INTO lojas (usuario_id, nome_fantasia, slug) VALUES (?, ?, ?)";
+        // --------------------------
+        // UPLOAD DA IMAGEM DA LOJA
+        // --------------------------
+
+        $imagem_nome = null;
+
+        if (!empty($_FILES['imagem']['name'])) {
+
+            // Caminho real absoluto
+            $pasta = __DIR__ . "/../uploads/lojas/";
+
+            if (!is_dir($pasta)) {
+                mkdir($pasta, 0777, true);
+            }
+
+            $ext = strtolower(pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION));
+            $imagem_nome = "loja_" . $usuario_id . "_" . time() . "." . $ext;
+
+            // Salva fisicamente no servidor
+            move_uploaded_file($_FILES['imagem']['tmp_name'], $pasta . $imagem_nome);
+        }
+
+
+        // Criar loja com imagem
+        $sqlLoja = "INSERT INTO lojas (usuario_id, nome_fantasia, slug, imagem) 
+                    VALUES (?, ?, ?, ?)";
         $stmtLoja = $conn->prepare($sqlLoja);
-        $stmtLoja->bind_param("iss", $usuario_id, $nome, $slug);
+        $stmtLoja->bind_param("isss", $usuario_id, $nome, $slug, $imagem_nome);
         $stmtLoja->execute();
 
         $msg = "Usuário e loja criados com sucesso!";
 
-        // 🔥 IMPORTANTE → PASSAR O SLUG PARA O login.php EXIBIR O LINK
         $_SESSION['slug_loja'] = $slug;
 
     } else {
@@ -54,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 }
 
-// Armazena a mensagem na sessão para exibir no login.php
 $_SESSION['msg_cadastro'] = $msg;
 header("Location: ../login.php");
 exit;

@@ -191,7 +191,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
                 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Sem foto">
             </header>
 
-            <!-- <h2>Lojas parceiras</h2> -->
+            <h2>Lojas parceiras</h2>
 
             <div id="lista-lojas" class="lista-lojas">
                 <?php
@@ -209,16 +209,16 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
                         $slug = htmlspecialchars($loja['slug'] ?? "#");
 
                         echo '
-                        <a href="loja/loja.php?slug=' . $slug . '" target="_blank" class="btn-entrar">
+    <a href="loja/loja.php?slug=' . $slug . '" target="_blank" class="btn-entrar">
+        <div class="card-loja">
+            <img src="uploads/lojas/' . $imagem . '" alt="' . $nome_loja . '" loading="lazy">
+            <h3>' . $nome_loja . '</h3>
+        </div>
+    </a>
+';
 
-                            <div class="card-loja">
 
-                                <img src="' . $imagem . '" alt="' . $nome_loja . '" loading="lazy">
-                                <h3>' . $nome_loja . '</h3>
-                            
-                            </div>
-                        </a>
-        ';
+
                     }
                 } else {
                     echo '<p>Nenhuma loja cadastrada.</p>';

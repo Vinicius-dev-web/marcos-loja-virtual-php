@@ -444,6 +444,7 @@ main {
 
             img {
                 width: 100px;
+                height: auto;
                 border-radius: 100%;
                 margin-right: 50px;
             }
@@ -457,13 +458,12 @@ main {
         .lista-produtos {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
 
             gap: 12px;
 
             .card {
-                width: 150px;
-                height: 300px;
+                width: 250px;
+                height: 400px;
 
                 padding: 0px;
 
@@ -489,15 +489,18 @@ main {
                 img {
                     width: 100%;
                     max-width: 100%;
+                    min-height: 250px;
+                    max-height: 250px;
                     /* border-radius: 10px; */
 
                     /* border: 1px solid #ccc; */
 
+                    background-color: var(--cor-loja3);
                     object-fit: cover;
                 }
 
                 .btn-comprar {
-                    padding: 5px;
+                    padding: 10px;
                     margin: 15px;
 
                     margin-top: 15px;
@@ -513,7 +516,6 @@ main {
                     background: var(--amarelo2);
                 }
             }
-
         }
     }
 
