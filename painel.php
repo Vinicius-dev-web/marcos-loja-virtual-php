@@ -38,6 +38,8 @@ $imagem_loja = $loja['imagem'] ?? "";
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/painel.css">
 
@@ -85,6 +87,10 @@ $imagem_loja = $loja['imagem'] ?? "";
                 <li data-target="loja" id="menuLoja">
                     <i class="bi bi-arrow-up-right-square"></i>
                     <span>Minha Loja</span>
+                </li>
+                <li data-target="" id="">
+                    <i class="las la-crown"></i>
+                    <span>VIP</span>
                 </li>
             </ul>
 
@@ -166,6 +172,8 @@ $imagem_loja = $loja['imagem'] ?? "";
 
                 <form action="php/cadastroProduto.php" method="POST" enctype="multipart/form-data">
 
+                    <h1>Produto</h1>
+
                     <label>
 
                         <i class="bi bi-card-image"></i>
@@ -176,6 +184,21 @@ $imagem_loja = $loja['imagem'] ?? "";
 
                     <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
                     <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6" required>
+
+                    <button type="submit">Cadastrar</button>
+                </form>
+
+                <form action="php/cadastroBanner.php" method="POST" enctype="multipart/form-data" id="form-banner">
+
+                    <h1>Banner</h1>
+
+                    <label>
+
+                        <i class="bi bi-card-image"></i>
+                        <span>Coloque uma imagem*</span>
+                        <input type="file" name="imagem" accept="image/*" required hidden>
+
+                    </label>
 
                     <button type="submit">Cadastrar</button>
                 </form>

@@ -20,7 +20,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
 
-    <title>Loja virtual</title>
+    <title>Bumi</title>
 
 </head>
 
@@ -29,7 +29,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
     <nav class="nav">
 
         <span class="logo" id="logo">
-            on<span>xus</span>
+            <span>B</span>umi
         </span>
 
         <label for="search">

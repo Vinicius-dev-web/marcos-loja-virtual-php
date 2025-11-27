@@ -337,6 +337,7 @@ main {
                 td {
                     padding: 16px 18px;
                     font-size: 15px;
+                    border-radius: 10px;
 
                     color: var(--cor-texto2);
                     border-bottom: 1px solid #ffffff15;
@@ -344,6 +345,8 @@ main {
                     img {
                         width: 80px;
                         max-width: 100px;
+                        border-radius: 10px;
+                        object-fit: cover;
                     }
                 }
 
@@ -403,7 +406,7 @@ main {
                 max-width: 100px;
 
                 /* border: 1px solid var(--cor-borda1); */
-                /* border-radius: 12px; */
+                border-radius: 10px;
             }
 
             h2,
@@ -424,6 +427,74 @@ main {
 
 
             form {
+                display: flex;
+                flex-direction: column;
+                width: 70%;
+
+                label {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    border: 1px solid transparent;
+
+                    background-color: var(--cor-fundo9);
+                    box-shadow: 0 8px 20px #00000020;
+
+                    padding: 80px;
+                    margin-bottom: 30px;
+
+                    i {
+                        font-size: 100px;
+                        color: var(--cor-loja3);
+                    }
+
+                    span {
+                        color: var(--cor-loja3);
+                    }
+
+                    &:hover {
+                        /* background-color: var(--cor-borda1); */
+                        border: 1px solid var(--cor-loja3);
+                    }
+                }
+
+                input,
+                button {
+
+                    width: 100%;
+                    padding: 20px;
+                    margin: 5px 0px;
+
+                    color: var(--cor-texto1);
+                    background-color: var(--cor-fundo9);
+                    box-shadow: 0 8px 20px #00000020;
+
+                    border: 1px solid transparent;
+                    border-radius: 5px;
+
+                    outline: none;
+
+                    &:hover {
+                        border: 1px solid var(--cor-loja3);
+                    }
+
+                    &:focus {
+                        border: 1px solid var(--cor-loja3);
+                    }
+                }
+
+                button {
+                    cursor: pointer;
+                    background-color: var(--cor-loja3);
+
+                    &:hover {
+                        background-color: var(--cor-loja4);
+                    }
+                }
+            }
+
+            #form-banner {
                 display: flex;
                 flex-direction: column;
                 width: 70%;
