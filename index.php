@@ -29,12 +29,12 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
     <nav class="nav">
 
         <span class="logo" id="logo">
-            ne<span>xus</span>
+            on<span>xus</span>
         </span>
 
         <label for="search">
             <i class="bi bi-search"></i>
-            <input type="text" id="search" placeholder="Buscar produto ou palavra-chave">
+            <input type="search" id="search" placeholder="Buscar produto ou palavra-chave">
             <button type="submit" id="btnBuscar" onclick="admlogin()">| Buscar</button>
         </label>
 
@@ -179,6 +179,61 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
                         data-imagem="">
                         Adicionar ao Carrinho
                     </button>
+                </div>
+                <div class="card">
+                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
+
+                    <h3>Teste</h3>
+                    <p class="preco">R$50,00</p>
+
+                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
+                        data-imagem="">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
+
+                    <h3>Teste</h3>
+                    <p class="preco">R$50,00</p>
+
+                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
+                        data-imagem="">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
+
+                    <h3>Teste</h3>
+                    <p class="preco">R$50,00</p>
+
+                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
+                        data-imagem="">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
+
+                    <h3>Teste</h3>
+                    <p class="preco">R$50,00</p>
+
+                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
+                        data-imagem="">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="uploads/6927189ed988d-11420304253jaajbg8h6.jpeg" alt="">
+
+                    <h3>Teste</h3>
+                    <p class="preco">R$50,00</p>
+
+                    <button class="btn-comprar" data-produto="' . $nome . '" data-preco="' . $p['preco'] . '"
+                        data-imagem="">
+                        Adicionar ao Carrinho
+                    </button>
                 </div> -->
             </div>
 
@@ -265,6 +320,7 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 <script src="js/links.js"></script>
 <script src="js/produtos.js"></script>
 <script src="js/pegarProduto.js"></script>
+<script src="js/search.js"></script>
 
 <script>
 

@@ -1,32 +1,34 @@
-async function carregarProdutos() {
-    const container = document.getElementById("card");
-    container.innerHTML = "<p>Carregando produtos...</p>";
 
-    try {
-        const resposta = await fetch("lista_produtos.php");
-        const produtos = await resposta.json();
+const searchInput = document.getElementById('search');
+const listaProdutos = document.getElementById('lista-produtos');
 
-        container.innerHTML = "";
+// Cria o card de erro
+let cardErro = document.createElement('div');
+cardErro.className = "card card-error";
+cardErro.innerHTML = `
+    <img src="https://png.pngtree.com/png-clipart/20190120/ourmid/pngtree-go-to-bed-sleeping-pig-piggy-pig-sleeping-png-image_493040.png" alt="error404">
+`;
+cardErro.style.display = "none"; // começa escondido
+listaProdutos.appendChild(cardErro);
 
-        produtos.forEach(produto => {
-            const card = document.createElement("div");
-            card.classList.add("card");
+searchInput.addEventListener('input', function() {
+    const termo = this.value.toLowerCase().trim();
+    const cards = listaProdutos.querySelectorAll('.card:not(.card-error)'); // ignora o card de erro
+    let count = 0;
 
-            card.innerHTML = `
-                <img src="${produto.imagem}" alt="${produto.nome}">
-                <h3>${produto.nome}</h3>
-                <span>R$ ${produto.preco}</span>
-                <button class="btn-comprar" data-produto="${produto.nome}">
-                    Adicionar ao Carrinho
-                </button>
-            `;
+    cards.forEach(card => {
+        const nomeH3 = card.querySelector('h3');
+        if (!nomeH3) return;
 
-            container.appendChild(card);
-        });
+        const nomeProduto = nomeH3.textContent.toLowerCase();
+        if (nomeProduto.includes(termo)) {
+            card.style.display = "flex";
+            count++;
+        } else {
+            card.style.display = "none";
+        }
+    });
 
-    } catch (erro) {
-        container.innerHTML = "<p>Erro ao carregar produtos.</p>";
-    }
-}
-
-carregarProdutos();
+    // mostra o card de erro se nenhum outro estiver visível
+    cardErro.style.display = count === 0 ? "flex" : "none";
+});
