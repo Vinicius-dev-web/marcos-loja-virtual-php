@@ -247,6 +247,7 @@ $imagem_loja = $loja['imagem'] ?? "";
                 <form action="" method="POST">
 
                     <label id="labelImagemCog">
+
                         <i class="bi bi-card-image" id="iconeLabelCog"></i>
                         <span id="textoLabelCog">Coloque uma imagem*</span>
 
@@ -511,7 +512,6 @@ $imagem_loja = $loja['imagem'] ?? "";
             reader.readAsDataURL(file);
         }
     });
-
 
     document.getElementById("labelImagemBanner").addEventListener("change", function (event) {
         const file = event.target.files[0];

@@ -39,31 +39,31 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 
             <span>Cadastrar loja</span>
 
-            <label for="image-register" id="image-register-label">
+            <label for="inputImagemRegister" id="imageRegisterLabel">
 
-                <input type="file" name="imagem" id="image-register" hidden required>
+                <i class="bi bi-person" id="iconeLabelRegister"></i>
 
-                <div class="logo-image">
+                <span id="textoLabelRegister">Sua logo*</span>
 
-                    <i class="bi bi-person"></i>
+                <input type="file" name="imagem" id="inputImagemRegister" accept="image/*" hidden required>
 
-                </div>
+                <img src="" alt="" id="previewImagemRegister" hidden>
 
             </label>
 
-            <label for="nome">
+            <label class="nomeLabel" for="nomeLabel">
                 <i class="bi bi-person"></i>
-                <input type="text" name="nome" placeholder="Empresa" required>
+                <input type="text" name="nome" id="nomeLabel" placeholder="Empresa" required>
             </label>
 
-            <label for="email">
+            <label class="emailLabel" for="emailLabel">
                 <i class="bi bi-envelope"></i>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" id="emailLabel" placeholder="Email" required>
             </label>
 
-            <label for="senha">
+            <label class="senhaLabel" for="senhaLabel">
                 <i class="bi bi-key"></i>
-                <input type="password" name="senha" placeholder="Senha" required>
+                <input type="password" name="senha" id="senhaLabel" placeholder="Senha" required>
             </label>
 
             <button type="submit"><b>CADASTRAR</b></button>
@@ -82,10 +82,32 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
                 <?php endif; ?>
             </div>
 
-
         </form>
 
     </div>
 </body>
+
+<script>
+    document.getElementById("imageRegisterLabel").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const preview = document.getElementById("previewImagemRegister");
+                preview.src = e.target.result;
+                preview.style.display = "block"; // mostra a imagem
+
+                // esconder ícone e texto
+                document.getElementById("iconeLabelRegister").style.display = "none";
+                document.getElementById("textoLabelRegister").style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+</script>
 
 </html>

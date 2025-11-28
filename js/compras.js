@@ -58,11 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        let mensagem = "Olá! Tenho interesse nesses produtos:\n\n";
+        let mensagem = "===== NOVO PEDIDO =====:\n\n";
         carrinho.forEach(item => {
             mensagem += `• ${item}\n`;
         });
-        mensagem += "\nPodemos continuar o atendimento?";
+        mensagem += "\n===== ==== ====== =====";
         const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
         window.open(url, "_blank");
 

@@ -37,5 +37,5 @@ menuItemsChat.forEach(item => {
 });
 
 // Ativar PRODUTOS ao abrir o painel
-document.querySelector('[data-target="cog"]').click();
+document.querySelector('[data-target="produtos"]').click();
 

@@ -19,12 +19,12 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
 
         /* text-align: center; */
         /* border: 1px solid #ccc; */
 
         padding: 40px;
-        height: 400px;
 
         span {
             text-align: center;
@@ -37,7 +37,9 @@ body {
             font-family: "Raleway", sans-serif;
         }
 
-        label {
+        .nomeLabel,
+        .emailLabel,
+        .senhaLabel {
 
             display: flex;
             align-items: center;
@@ -59,8 +61,8 @@ body {
             outline: none;
             cursor: pointer;
 
-            &:focus {
-                border: 2px solid var(--cor-fundo2);
+            &:hover {
+                border: 2px solid var(--cor-fundo9);
             }
 
             i {
@@ -97,35 +99,96 @@ body {
                 }
 
             }
+
         }
 
-        #image-register-label {
-
+        #imageRegisterLabel {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
 
-            .logo-image {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+            width: 100%;
+            height: 200px;
 
-                height: 200px;
+            padding: 10px;
+            margin: 10px 0px;
+            font-size: 20px;
 
-                i {
-                    font-size: 50px;
+            border-radius: 8px;
+
+            color: var(--cor-texto1);
+
+            background: linear-gradient(to right, #1553F2, #164EE9);
+
+            /* background-color: var(--cor-fundo1); */
+            border: 2px solid var(--cor-fundo2);
+
+            outline: none;
+            cursor: pointer;
+
+            &:hover {
+                border: 2px solid var(--cor-fundo9);
+            }
+
+            &:focus {
+                border: 2px solid var(--cor-fundo9);
+            }
+
+            i {
+                color: var(--cor-borda2);
+                font-size: 60px;
+            }
+
+            span {
+                font-size: 15px;
+                color: var(--cor-borda2);
+            }
+
+            input {
+
+                width: 90%;
+
+
+                padding: 17px;
+                font-size: 15px;
+
+                color: var(--cor-texto1);
+
+                background: transparent;
+                border: none;
+                outline: none;
+
+                &::placeholder {
+                    color: var(--cor-borda2);
                 }
 
-                span {
-                    font-size: 20px;
-                    color: var(--cor-borda2);
+                &:-webkit-autofill {
+                    -webkit-text-fill-color: #fff !important;
+
+                    box-shadow: 0 0 0 1000px var(--cor-fundo2) inset !important;
+
+                    border: none;
+                    border-radius: 0px;
+
                 }
 
             }
 
-        }
+            img {
+                display: none;
 
+                width: 50%;
+                height: 100%;
+
+                max-width: 50%;
+                max-height: 100%;
+
+                border-radius: 10px;
+                object-fit: cover;
+            }
+
+        }
 
         button {
             background-color: var(--cor-texto1);
