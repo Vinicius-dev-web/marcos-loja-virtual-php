@@ -3,9 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const numeroWhatsApp = "988671941";
     let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-    const iconeMenuMobile = document.getElementById("abrirMenuMobile");
-    const painelMenuMobile = document.getElementById("esquerda");
-
     const iconeCarrinho = document.getElementById("abrirCarrinho");
     const painelCarrinho = document.getElementById("carrinho");
 
@@ -15,10 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     iconeCarrinho.addEventListener("click", () => {
         painelCarrinho.classList.toggle("aberto");
         renderizarCarrinho();
-    });
-
-    iconeMenuMobile.addEventListener("click", () => {
-        painelMenuMobile.classList.toggle("abrir");
     });
 
     document.querySelectorAll(".btn-comprar").forEach(btn => {

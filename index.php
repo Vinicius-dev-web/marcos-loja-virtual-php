@@ -33,9 +33,12 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
         </span>
 
         <label for="search">
+
+            <input type="search" id="search" placeholder="Pesquisar">
+
             <i class="bi bi-search"></i>
-            <input type="search" id="search" placeholder="Buscar produto ou palavra-chave">
-            <button type="submit" id="btnBuscar" onclick="admlogin()">| Buscar</button>
+
+            <!-- <button type="submit" id="btnBuscar" onclick="admlogin()">| Buscar</button> -->
         </label>
 
         <div class="icons-menu">
@@ -44,6 +47,9 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
                 <i class="bi bi-handbag-fill" id="abrirCarrinho"></i>
                 <span id="contadorCarrinho">0</span>
             </div>
+
+            <button id="login">Entrar</button>
+            <button id="register">Cadastrar</button>
 
             <img src="https://img.myloview.com.br/posters/funny-cartoon-monster-face-vector-monster-square-avatar-700-196485313.jpg"
                 alt="sem foto">
@@ -116,11 +122,11 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 
         <div class="carrossel-track">
 
-            <img src="img/Banner Horizontal Black Friday Vibrante Preto e Vermelho.png" alt="">
+            <img src="img/FRETEGRATIS.png" alt="">
 
-            <img src="img/Banner Black Friday fashion rosa e preto.png" alt="">
+            <img src="img/Banner moda feminina bolsa e acessorios desconto.png" alt="">
 
-            <img src="img/Banner para loja de eletrônicos computador desconto preto e vermelho.png" alt="">
+            <img src="img/Banner Moda Masculina Nova Coleção Moderno Preto e Cinza.png" alt="">
 
         </div>
 
@@ -312,6 +318,8 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
 
     <footer>
         &copy;BolvierTeam
+
+        <a href="">Virar vendedor</a>
     </footer>
 
 </body>

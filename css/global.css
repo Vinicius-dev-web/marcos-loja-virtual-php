@@ -38,6 +38,7 @@
 
     --cor-fundo9: #ffffff;
     --cor-fundo10: #EEEEF9;
+    --cor-fundo11: #f5f5f5;
 
     --painel: linear-gradient(to right, #F8F8FC, #ECECF8);
 
@@ -91,6 +92,9 @@
     --cor-borda2: #337AFB;
     /*Bordas secundárias*/
 
+    --carrinho: #303342;
+    --carrinho1: #393E50;
+    --carrinho2: #13141A;
 }
 
 /* ======================= */

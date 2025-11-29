@@ -13,8 +13,8 @@ $usuario_id = $_SESSION['usuario_id'];
 $nome = $_POST['nome'];
 $preco = $_POST['preco'];
 
-// Pasta pública onde a imagem será salva
-$pasta = "../uploads/";
+// Pasta onde a imagem será salva
+$pasta = "../uploads/produtos/";
 if (!is_dir($pasta)) {
     mkdir($pasta, 0777, true);
 }
@@ -25,12 +25,13 @@ $nomeOriginal = basename($arquivo['name']);
 $tipoArquivo = strtolower(pathinfo($nomeOriginal, PATHINFO_EXTENSION));
 $nomeImagem = uniqid() . "-" . $nomeOriginal;
 
-// Tipos permitidos
+// Tipos de imagem permitidos
 $tiposPermitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-// Tamanho máximo (5MB)
+// Tamanho máximo (5 MB)
 $tamanhoMaximo = 5 * 1024 * 1024;
 
+// Verificações
 if (!in_array($tipoArquivo, $tiposPermitidos)) {
     die("Erro: Tipo de arquivo não permitido.");
 }
@@ -39,13 +40,13 @@ if ($arquivo['size'] > $tamanhoMaximo) {
     die("Erro: Arquivo muito grande.");
 }
 
-// Move o arquivo
+// Move o arquivo para a pasta correta
 if (move_uploaded_file($arquivo['tmp_name'], $pasta . $nomeImagem)) {
 
-    // Caminho público
-    $caminhoImagem = "uploads/" . $nomeImagem;
+    // Caminho salvo no banco (caminho usado pelo navegador)
+    $caminhoImagem = "uploads/produtos/" . $nomeImagem;
 
-    // Insere com o usuario_id
+    // Inserção no banco com o usuario_id
     $sql = "INSERT INTO produtos (nome, preco, imagem, usuario_id) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sdsi", $nome, $preco, $caminhoImagem, $usuario_id);

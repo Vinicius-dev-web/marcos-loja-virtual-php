@@ -75,10 +75,10 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
                 </b><br>
 
                 <?php if (!empty($slug_loja)): ?>
-                    <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"
-                        style="color: blue; font-weight: bold;">
-                        👉 Acessar sua loja
-                    </a>
+                <a href="loja/loja.php?slug=<?php echo $slug_loja; ?>" target="_blank"
+                    style="color: blue; font-weight: bold;">
+                    👉 Acessar sua loja
+                </a>
                 <?php endif; ?>
             </div>
 
@@ -102,6 +102,29 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
                 // esconder ícone e texto
                 document.getElementById("iconeLabelRegister").style.display = "none";
                 document.getElementById("textoLabelRegister").style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+</script>
+
+<script>
+    document.getElementById("inputImagemRegister").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const preview = document.getElementById("previewImagemCog");
+                preview.src = e.target.result;
+                preview.style.display = "block"; // mostra a imagem
+
+                // esconder ícone e texto
+                document.getElementById("iconeLabelCog").style.display = "none";
+                document.getElementById("textoLabelCog").style.display = "none";
             };
 
             reader.readAsDataURL(file);

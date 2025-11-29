@@ -109,7 +109,9 @@ if (!$imagem_loja_path) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="tema.php?slug=<?php echo urlencode($slug); ?>">
     <link rel="stylesheet" href="loja.css">
+
 
     <title>
         <?php echo htmlspecialchars($nome_loja) ?> - Loja Virtual
@@ -119,7 +121,7 @@ if (!$imagem_loja_path) {
 
 <body>
 
-    <nav>
+    <nav class="nav">
 
         <span class="logo" id="logo">
             <?php echo htmlspecialchars($nome_loja) ?>
@@ -201,13 +203,23 @@ if (!$imagem_loja_path) {
 
         <h2>Seu Carrinho</h2>
         <div id="lista-carrinho"></div>
-        <button class="btn-finalizar" id="btnFinalizar">Finalizar Pedido</button>
+        <!-- <button class="btn-finalizar" id="btnFinalizar" onclick="carrinho()">Finalizar Pedido</button> -->
+
+        <button onclick="carrinho()">Finalizar Pedido</button>
     </div>
 
-    <header>
-        <img class="header-banner"
-            src="https://marketplace.canva.com/EAFONczDVWo/1/0/1600w/canva-banner-promo%C3%A7%C3%A3o-de-roupas-para-site-marrom-e-cinza-Yv34J28l6yU.jpg"
-            alt="Banner">
+    <header class="carrossel-container">
+
+        <div class="carrossel-track">
+
+            <img src="../img/FRETEGRATIS.png" alt="">
+
+            <img src="../img/Banner moda feminina bolsa e acessorios desconto.png" alt="">
+
+            <img src="../img/Banner Moda Masculina Nova Coleção Moderno Preto e Cinza.png" alt="">
+
+        </div>
+
     </header>
 
     <main class="page" id="page">
@@ -221,6 +233,11 @@ if (!$imagem_loja_path) {
                 <h1>
                     <?php echo htmlspecialchars($nome_loja) ?>
                 </h1>
+
+                <label for="chat-shop-user" onclick="chatShopUser()">
+                    <i class="bi bi-chat-right-dots"></i>
+                    <button id="chat-shop-user">Falar com o vendedor</button>
+                </label>
 
             </div>
         </section>
@@ -357,5 +374,43 @@ if (!$imagem_loja_path) {
 <script src="../js/links.js"></script>
 <script src="../js/produtos.js"></script>
 <script src="../js/pegarProduto.js"></script>
+
+<script>
+    function chatShopUser() {
+
+        window.open("http://localhost/marcos_lojavirtual/chatVendedor.php", "_blank")
+
+    }
+</script>
+
+<script>
+
+    const track = document.querySelector('.carrossel-track');
+    const slides = Array.from(track.children);
+    let index = 0;
+
+    function slideShow() {
+        index++;
+        if (index >= slides.length) index = 0;
+        track.style.transform = `translateX(-${index * 100}%)`; // 100% da largura do container
+    }
+
+    // Troca a cada 3 segundos
+    setInterval(slideShow, 3000);
+
+</script>
+
+<script>
+    window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".nav");
+
+        if (window.scrollY > 10) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+</script>
 
 </html>

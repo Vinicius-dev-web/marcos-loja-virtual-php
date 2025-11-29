@@ -36,12 +36,12 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
         <form method="POST" action="php/loginCliente.php">
             <span>Entrar</span>
 
-            <label for="email">
+            <label for="email" class="nomeLabel">
                 <i class="bi bi-person"></i>
                 <input type="email" name="email" id="email" placeholder="Email" required>
             </label>
 
-            <label for="senha">
+            <label for="senha" class="emailLabel">
                 <i class="bi bi-key"></i>
                 <input type="password" name="senha" id="senha" placeholder="Senha" required>
             </label>

@@ -8,3 +8,19 @@ function admlogin() {
 
     }
 }
+
+function chatShopUser(){
+
+    window.open("http://localhost/marcos_lojavirtual/chatVendedor.php", "_blank")
+}
+
+function homePage(){
+
+    location.href = "index.php"
+}
+
+function carrinho(){
+
+    location.href = "carrinho.php"
+    
+}

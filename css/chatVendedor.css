@@ -1,0 +1,152 @@
+body {
+    background: var(--painel);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+button {
+    cursor: pointer;
+}
+
+.painel-lateral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 30px 0px;
+    height: 100vh;
+    width: 300px;
+    max-width: 300px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    color: var(--cor-texto1);
+    background: var(--cor-loja3);
+
+    button{
+        width: 50%;
+        padding: 10px;
+
+        border: none;
+        border-radius: 5px;
+    }
+    ul {
+        display: flex;
+        flex-direction: column;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            border-radius: 5px;
+
+            list-style: none;
+            margin: 5px 20px;
+
+            cursor: pointer;
+
+            &:hover {
+                background: var(--cor-loja4);
+            }
+
+            img {
+                width: 20%;
+                max-width: 20%;
+
+                border-radius: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+.form {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0rem 200px 0px 400px;
+    height: 100vh;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 600px;
+        padding: 40px;
+
+        border-radius: 10px;
+        background-color: var(--cor-fundo9);
+
+        .chatMsg {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+
+            width: 100%;
+            height: 90%;
+            padding: 20px;
+
+            border-radius: 10px;
+
+            color: var(--cor-texto2);
+            background-color: var(--cor-fundo10);
+        }
+
+        .chatCommand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            width: 100%;
+            margin: 10px 0px;
+            padding: 0px 30px;
+
+            border-radius: 10px;
+            background-color: var(--cor-fundo10);
+
+            label {
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .fileChatVendedor, .submitChatVendedor {
+                padding: 10px;
+                border-radius: 100%;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+
+                &:hover {
+                    background-color: var(--cor-fundo9);
+
+                }
+            }
+
+            .msgChatVendedor {
+                width: 100%;
+
+                input {
+                    width: 100%;
+                    margin: 0px 25px;
+                    padding: 20px 0px;
+
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                }
+            }
+            
+        }
+    }
+}

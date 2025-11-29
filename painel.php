@@ -12,15 +12,19 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 // Conexão e pegar o slug da loja
 require "php/conexao.php";
 $usuario_id = $_SESSION['usuario_id'];
-$stmt = $conn->prepare("SELECT slug, imagem FROM lojas WHERE usuario_id = ?");
+
+// ADICIONADO → Buscar ID da loja e cor do tema
+$stmt = $conn->prepare("SELECT id, slug, imagem, cor_tema FROM lojas WHERE usuario_id = ?");
 $stmt->bind_param("i", $usuario_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $loja = $result->fetch_assoc();
 
+// ADICIONADO → Variáveis necessárias
+$loja_id = $loja['id'] ?? "";
 $slug_loja = $loja['slug'] ?? "";
 $imagem_loja = $loja['imagem'] ?? "";
-
+$cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +59,7 @@ $imagem_loja = $loja['imagem'] ?? "";
         <div class="painel-info">
 
             <?php if (!empty($imagem_loja)): ?>
-            <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+                <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
             <?php endif; ?>
 
             <br>
@@ -267,6 +271,7 @@ $imagem_loja = $loja['imagem'] ?? "";
                                 placeholder="Descrição da loja. Ex.: Loja de Roupas e Sapatos 😎✌️👕👖👟">
                             </textarea>
 
+
                             <select name="" id="">
 
                                 <option value="">Sem descrição</option>
@@ -286,6 +291,18 @@ $imagem_loja = $loja['imagem'] ?? "";
 
 
                     </div>
+
+
+                </form>
+
+                <form action="php/salvarCor.php" method="POST">
+                    <label>Cor da Loja:</label>
+
+                    <!-- ADICIONADO value para exibir cor salva -->
+                    <input type="color" name="cor_tema" id="corLoja" value="<?= $cor_tema ?>">
+
+                    <input type="hidden" name="loja_id" value="<?= $loja_id ?>">
+                    <button type="submit">Salvar cor</button>
                 </form>
 
                 <form action="php/excluirConta.php" method="POST"
@@ -294,6 +311,7 @@ $imagem_loja = $loja['imagem'] ?? "";
                     <button id="deleteAccount" type="submit">Excluir conta</button>
 
                 </form>
+
             </div>
         </section>
 
@@ -304,12 +322,10 @@ $imagem_loja = $loja['imagem'] ?? "";
                     técnico ou que os arquivos ainda estejam sendo enviados ao servidor.</span>
                 <img src="https://png.pngtree.com/png-clipart/20190120/ourmid/pngtree-go-to-bed-sleeping-pig-piggy-pig-sleeping-png-image_493040.png"
                     alt="error">
-                <!-- <button>Tente esse</button> -->
             </div>
         </section>
 
         <section class="msg-sec" id="msg-sec">
-
             <ul class="painel-msg" id="painel-msg">
 
                 <li class="profile-msg" data-target="chat-div">
@@ -472,9 +488,6 @@ $imagem_loja = $loja['imagem'] ?? "";
         document.documentElement.setAttribute("data-theme", savedTheme);
         updateIcon(savedTheme);
 
-        const btn = document.getElementById("toggleThemeBtn");
-        if (btn) btn.addEventListener("click", toggleTheme);
-
         // Loja - menu e botão
         const urlLoja = "loja/loja.php?slug=<?php echo $slug_loja; ?>";
 
@@ -504,7 +517,6 @@ $imagem_loja = $loja['imagem'] ?? "";
                 preview.src = e.target.result;
                 preview.style.display = "block"; // mostra a imagem
 
-                // esconder ícone e texto
                 document.getElementById("iconeLabelProd").style.display = "none";
                 document.getElementById("textoLabelProd").style.display = "none";
             };
@@ -522,9 +534,8 @@ $imagem_loja = $loja['imagem'] ?? "";
             reader.onload = function (e) {
                 const preview = document.getElementById("previewImagemBanner");
                 preview.src = e.target.result;
-                preview.style.display = "block"; // mostra a imagem
+                preview.style.display = "block";
 
-                // esconder ícone e texto
                 document.getElementById("iconeLabelBanner").style.display = "none";
                 document.getElementById("textoLabelBanner").style.display = "none";
             };
@@ -542,9 +553,8 @@ $imagem_loja = $loja['imagem'] ?? "";
             reader.onload = function (e) {
                 const preview = document.getElementById("previewImagemCog");
                 preview.src = e.target.result;
-                preview.style.display = "block"; // mostra a imagem
+                preview.style.display = "block";
 
-                // esconder ícone e texto
                 document.getElementById("iconeLabelCog").style.display = "none";
                 document.getElementById("textoLabelCog").style.display = "none";
             };
@@ -554,5 +564,6 @@ $imagem_loja = $loja['imagem'] ?? "";
     });
 
 </script>
+
 
 </html>
