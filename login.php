@@ -47,7 +47,11 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
             </label>
 
             <button type="submit"><b>ENTRAR</b></button>
+            
             <!-- <button type="button" onclick="window.location.href='cadastro.php'"><b>CRIAR CONTA</b></button> -->
+
+            <button type="button" onclick="window.location.href='recuperar.php'"><b>ESQUECI A SENHA</b></button>
+
 
             <div id="error" style="color: var(--cor-vermelho);">
                 <b><?php echo $erro; ?></b>

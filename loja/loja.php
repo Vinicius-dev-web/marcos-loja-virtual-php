@@ -106,8 +106,8 @@ if (!$imagem_loja_path) {
         <ul>
             <li data-target="home">Página inicial</li>
             <li data-target="allprodutos">Produtos</li>
-            <li data-target="">Sobre mim</li>
-            <li data-target="">Localização</li>
+            <li data-target="aboutme">Sobre mim</li>
+            <li data-target="location">Localização</li>
         </ul>
 
         <span>Visitante</span>
@@ -246,8 +246,6 @@ if (!$imagem_loja_path) {
                 <div class="banners-div" id="banners-div">
                     <img src="https://marketplace.canva.com/EAF0RxuySjc/1/0/800w/canva-banner-de-black-friday-formato-paisagem-org%C3%A2nico-delicado-em-lavanda-e-cinza-ard%C3%B3sia-yiGSUITHLd0.jpg"
                         alt="banner">
-                        
-                    <video src="../apresentação.mp4" autoplay loop></video>
                 </div>
 
             </div>
@@ -317,6 +315,8 @@ if (!$imagem_loja_path) {
 
             </div>
 
+            <span>Produtos</span>
+
         </section>
 
         <section class="aboutme" id="aboutme"></section>
@@ -331,8 +331,40 @@ if (!$imagem_loja_path) {
 <script src="../js/links.js"></script>
 <script src="../js/produtos.js"></script>
 <script src="../js/pegarProduto.js"></script>
-<script src="painelloja.js"></script>
+<!-- <script src="painelloja.js"></script> -->
 
+<!-- Painel de abas -->
+<!-- <script>
+    // Seleciona todos os itens do menu lateral
+    const menuItems = document.querySelectorAll(".nav ul li");
+
+    // Seleciona todas as seções dentro do main.page
+    const sections = document.querySelectorAll("main.page section");
+
+    menuItems.forEach(item => {
+        item.addEventListener("click", () => {
+
+            // Remove active de todos
+            menuItems.forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+
+            // Esconde todas as seções
+            sections.forEach(sec => sec.classList.remove("active"));
+
+            // Seleciona a aba correspondente
+            const target = item.getAttribute("data-target");
+            document.getElementById(target).classList.add("active");
+        });
+    });
+
+
+    // Ativar PRODUTOS ao abrir o painel
+    document.querySelector('[data-target="home"]').click();
+
+
+</script> -->
+
+<!-- Carrossel header -->
 <script>
     const track = document.querySelector('.carrossel-track');
     const slides = Array.from(track.children);
@@ -347,6 +379,7 @@ if (!$imagem_loja_path) {
     setInterval(slideShow, 3000);
 </script>
 
+<!-- NavBar efeito de fad-in -->
 <script>
     window.addEventListener("scroll", function () {
         const navbar = document.querySelector(".nav");
@@ -358,6 +391,7 @@ if (!$imagem_loja_path) {
     });
 </script>
 
+<!-- Link para o carrinho -->
 <script>
     function carrinho() {
         const slug = "<?php echo urlencode($slug); ?>";

@@ -127,7 +127,7 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
 
                 </div>
 
-                <button data-target="create">Editar loja</button>
+                <button data-target="cog">Editar loja</button>
 
             </div>
 
