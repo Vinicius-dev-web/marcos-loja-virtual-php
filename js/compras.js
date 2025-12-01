@@ -5,6 +5,7 @@ document.querySelectorAll(".btn-comprar").forEach(btn => {
         const nome = this.dataset.produto;
         const preco = this.dataset.preco;
         const imagem = this.dataset.imagem;
+        const tamanho = this.dataset.tamanho; // <<< PEGANDO O TAMANHO
 
         // PEGAR SLUG DIRETO DO PHP
         const slug = document.body.dataset.slug;
@@ -12,7 +13,12 @@ document.querySelectorAll(".btn-comprar").forEach(btn => {
         fetch("../php/add_carrinho.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `nome=${encodeURIComponent(nome)}&preco=${preco}&imagem=${encodeURIComponent(imagem)}&slug=${slug}`
+            body:
+                `nome=${encodeURIComponent(nome)}` +
+                `&preco=${encodeURIComponent(preco)}` +
+                `&imagem=${encodeURIComponent(imagem)}` +
+                `&tamanho=${encodeURIComponent(tamanho)}` +   // <<< ENVIANDO O TAMANHO
+                `&slug=${encodeURIComponent(slug)}`
         })
         .then(res => res.json())
         .then(data => {

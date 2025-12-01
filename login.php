@@ -26,6 +26,8 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/login.css">
 
+    <link rel="icon" href="Bolvier.png">
+
     <title>Entrar</title>
 </head>
 
@@ -47,7 +49,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
             </label>
 
             <button type="submit"><b>ENTRAR</b></button>
-            
+
             <!-- <button type="button" onclick="window.location.href='cadastro.php'"><b>CRIAR CONTA</b></button> -->
 
             <button type="button" onclick="window.location.href='recuperar.php'"><b>ESQUECI A SENHA</b></button>

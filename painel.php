@@ -131,13 +131,24 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
 
             </div>
 
+            <label for="search">
+
+                <i class="bi bi-search"></i>
+                <input type="text" name="" id="search" placeholder="Pesquise aqui...">
+
+            </label>
+
             <div class="tabela-container">
                 <table class="tabela-estilo">
+
+
                     <thead>
+
                         <tr>
                             <th>Foto</th>
                             <th>Produto</th>
                             <th>Preço</th>
+                            <th>Tamanho</th>
                             <th>Hora</th>
                             <th>Editar</th>
                         </tr>
@@ -153,16 +164,18 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
                         if ($result && $result->num_rows > 0) {
                             while ($p = $result->fetch_assoc()) {
                                 echo "<tr>
-                    <td><img src='" . $p['imagem'] . "' width='60'></td>
-                    <td>" . $p['nome'] . "</td>
-                    <td>R$ " . number_format($p['preco'], 2, ',', '.') . "</td>
-                    <td>" . date('H:i', strtotime($p['data_criacao'])) . "</td>
-                    <td>
-                        <button class='btn-editar' onclick='editarProduto(" . $p['id'] . ", \"" . addslashes($p['nome']) . "\", " . $p['preco'] . ")'>
-                            <span>Editar</span>
-                        </button>
-                    </td>
-                </tr>";
+    <td><img src='" . $p['imagem'] . "' width='60'></td>
+    <td>" . $p['nome'] . "</td>
+    <td>R$ " . number_format($p['preco'], 2, ',', '.') . "</td>
+    <td>" . $p['tamanho'] . "</td>
+    <td>" . date('H:i', strtotime($p['data_criacao'])) . "</td>
+    <td>
+        <button class='btn-editar' onclick='editarProduto(" . $p['id'] . ", \"" . addslashes($p['nome']) . "\", " . $p['preco'] . ")'>
+            <span>Editar</span>
+        </button>
+    </td>
+</tr>";
+
                             }
                         } else {
                             echo "<tr><td colspan='6'>Nenhum produto cadastrado.</td></tr>";
@@ -196,48 +209,108 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
                         <div class="input-values-create">
 
                             <input type="text" name="nome" placeholder="Nome do produto*" maxlength="25" required>
-                            
+
                             <input type="text" name="preco" step="0.01" placeholder="Preço do produto*" maxlength="6"
                                 required>
 
-                            <input type="text" name="" id="description-prod"
-                                placeholder="Descrição do produto. Ex.: Tam. 38/39">
+                            <div class="select-info-outfit">
 
-                            <div class="checkBoxes">
+                                <!-- SELECT PRINCIPAL -->
+                                <select class="choose-option" id="choose-option">
+                                    <option value="">Selecione</option>
+                                    <option value="roupa-infantil">Roupa Infantil</option>
+                                    <option value="sapato-infantil">Sapato Infantil</option>
+                                    <option value="roupa">Roupa Adulto</option>
+                                    <option value="sapato">Sapato Adulto</option>
+                                </select>
 
-                                <div class="checkBox">
 
-                                    <div class="values">
-                                        <span>PP</span>
-                                        <input type="checkbox" name="" id="" value="PP">
+                                <!-- TAMANHO SAPATO -->
+                                <select class="checkBoxes" id="tam-sapato">
+                                    <option value="null">Escolha um tamanho</option>
+                                    <option value="33/34">33/34</option>
+                                    <option value="34/35">34/35</option>
+                                    <option value="35/36">35/36</option>
+                                    <option value="36/37">36/37</option>
+                                    <option value="37/38">37/38</option>
+                                    <option value="38/39">38/39</option>
+                                    <option value="39/40">39/40</option>
+                                    <option value="40/41">40/41</option>
+                                    <option value="41/42">41/42</option>
+                                    <option value="42/43">42/43</option>
+                                    <option value="43/44">43/44</option>
+                                    <option value="44/45">44/45</option>
+                                    <option value="45/46">45/46</option>
+                                    <option value="46/47">46/47</option>
+                                </select>
+
+                                <select class="checkBoxes" id="tam-sapato-infantil">
+                                    <option value="null">Escolha um tamanho</option>
+                                    <option value="17/18">17/18</option>
+                                    <option value="19/20">19/20</option>
+                                    <option value="21/22">21/22</option>
+                                    <option value="23/24">23/24</option>
+                                    <option value="25/26">25/26</option>
+                                    <option value="27/28">27/28</option>
+                                    <option value="29/30">29/30</option>
+                                    <option value="31/32">31/32</option>
+                                </select>
+
+                                <!-- TAMANHO ROUPA -->
+                                <div id="tam-roupa" class="checkBoxes">
+
+                                    <div class="checkBox">
+                                        <div class="values">
+                                            <span>PP</span>
+                                            <input type="checkbox" value="PP">
+                                        </div>
+                                        <div class="values">
+                                            <span>P</span>
+                                            <input type="checkbox" value="P">
+                                        </div>
+                                        <div class="values">
+                                            <span>M</span>
+                                            <input type="checkbox" value="M">
+                                        </div>
+                                        <div class="values">
+                                            <span>G</span>
+                                            <input type="checkbox" value="G">
+                                        </div>
+                                        <div class="values">
+                                            <span>GG</span>
+                                            <input type="checkbox" value="GG">
+                                        </div>
                                     </div>
-                                    <div class="values">
-                                        <span>P</span>
-                                        <input type="checkbox" name="" id="" value="P">
+
+                                </div>
+
+                                <div id="tam-roupa-infantil" class="checkBoxes">
+
+                                    <div class="checkBox">
+                                        <div class="values"><span>RN</span><input type="checkbox" value="RN"></div>
+                                        <div class="values"><span>P</span><input type="checkbox" value="P"></div>
+                                        <div class="values"><span>M</span><input type="checkbox" value="M"></div>
+                                        <div class="values"><span>G</span><input type="checkbox" value="G"></div>
+                                        <div class="values"><span>1</span><input type="checkbox" value="1"></div>
+                                        <div class="values"><span>2</span><input type="checkbox" value="2"></div>
+                                        <div class="values"><span>3</span><input type="checkbox" value="3"></div>
+                                        <div class="values"><span>4</span><input type="checkbox" value="4"></div>
+                                        <div class="values"><span>6</span><input type="checkbox" value="6"></div>
+                                        <div class="values"><span>8</span><input type="checkbox" value="8"></div>
+                                        <div class="values"><span>10</span><input type="checkbox" value="10"></div>
+                                        <div class="values"><span>12</span><input type="checkbox" value="12"></div>
                                     </div>
-                                    <div class="values">
-                                        <span>M</span>
-                                        <input type="checkbox" name="" id="" value="M">
-                                    </div>
-                                    <div class="values">
-                                        <span>G</span>
-                                        <input type="checkbox" name="" id="" value="G">
-                                    </div>
-                                    <div class="values">
-                                        <span>GG</span>
-                                        <input type="checkbox" name="" id="" value="GG">
-                                    </div>
+
                                 </div>
 
                             </div>
 
                         </div>
 
+                        <input type="hidden" name="tamanho" id="tamanho-final">
                         <button type="submit">Cadastrar</button>
 
-
                     </div>
-
 
                 </form>
 
@@ -475,5 +548,91 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
 
 </script>
 
+<!-- Select roupas/sapatos -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const selectCategoria = document.getElementById("choose-option");
+        const sapatoAdulto = document.getElementById("tam-sapato");
+        const sapatoInfantil = document.getElementById("tam-sapato-infantil");
+        const roupaAdulto = document.getElementById("tam-roupa");
+        const roupaInfantil = document.getElementById("tam-roupa-infantil");
+
+        const tamanhoFinal = document.getElementById("tamanho-final");
+
+        // Oculta todos
+        function ocultarTudo() {
+            sapatoAdulto.style.display = "none";
+            sapatoInfantil.style.display = "none";
+            roupaAdulto.style.display = "none";
+            roupaInfantil.style.display = "none";
+        }
+
+        ocultarTudo();
+
+        // Monitorar a escolha da categoria
+        selectCategoria.addEventListener("change", () => {
+
+            ocultarTudo();
+            tamanhoFinal.value = ""; // zera o tamanho escolhido
+
+            let categoria = selectCategoria.value;
+
+            if (categoria === "sapato") {
+                sapatoAdulto.style.display = "block";
+            }
+            if (categoria === "sapato-infantil") {
+                sapatoInfantil.style.display = "block";
+            }
+            if (categoria === "roupa") {
+                roupaAdulto.style.display = "block";
+            }
+            if (categoria === "roupa-infantil") {
+                roupaInfantil.style.display = "block";
+            }
+        });
+
+        // Para selects de sapato
+        sapatoAdulto.addEventListener("change", () => {
+            tamanhoFinal.value = sapatoAdulto.value;
+        });
+
+        sapatoInfantil.addEventListener("change", () => {
+            tamanhoFinal.value = sapatoInfantil.value;
+        });
+
+        // Para checkboxes de roupa
+        document.querySelectorAll("#tam-roupa input[type=checkbox]").forEach(chk => {
+            chk.addEventListener("change", () => {
+                let selecionados = [...document.querySelectorAll("#tam-roupa input:checked")].map(e => e.value);
+                tamanhoFinal.value = selecionados.join(",");
+            });
+        });
+
+        // Para roupa infantil
+        document.querySelectorAll("#tam-roupa-infantil input[type=checkbox]").forEach(chk => {
+            chk.addEventListener("change", () => {
+                let selecionados = [...document.querySelectorAll("#tam-roupa-infantil input:checked")].map(e => e.value);
+                tamanhoFinal.value = selecionados.join(",");
+            });
+        });
+
+    });
+</script>
+
+<!-- pesquisa -->
+
+<script>
+    document.getElementById("search").addEventListener("keyup", function () {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll(".tabela-estilo tbody tr");
+
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(filter) ? "" : "none";
+        });
+    });
+</script>
 
 </html>

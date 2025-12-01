@@ -99,22 +99,6 @@ if (!$imagem_loja_path) {
 
 <body data-slug="<?php echo $slug ?>">
 
-    <nav class="nav">
-
-        <h2>BolvierShop</h2>
-
-        <ul>
-            <li data-target="home">Página inicial</li>
-            <li data-target="allprodutos">Produtos</li>
-            <li data-target="aboutme">Sobre mim</li>
-            <li data-target="location">Localização</li>
-        </ul>
-
-        <span>Visitante</span>
-
-    </nav>
-
-
     <main class="page" id="page">
 
         <div class="navbar">
@@ -181,20 +165,20 @@ if (!$imagem_loja_path) {
                     $stmtProdutos->bind_param("i", $usuario_id);
                     $stmtProdutos->execute();
                     $result = $stmtProdutos->get_result();
-    
+
                     if ($result && $result->num_rows > 0) {
                         while ($p = $result->fetch_assoc()) {
-    
+
                             $prod_img_db = $p['imagem'] ?? '';
                             $prod_path = null;
-    
+
                             $prod_candidates = [
                                 'uploads/loja/' . $prod_img_db,
                                 'uploads/lojas/' . $prod_img_db,
                                 'uploads/' . $prod_img_db,
                                 $prod_img_db,
                             ];
-    
+
                             foreach ($prod_candidates as $c) {
                                 $physical = realpath(__DIR__ . "/../" . $c);
                                 if ($physical && file_exists($physical)) {
@@ -202,7 +186,7 @@ if (!$imagem_loja_path) {
                                     break;
                                 }
                             }
-    
+
                             if (!$prod_path) {
                                 if ($prod_img_db && (strpos($prod_img_db, 'uploads/') === 0 || strpos($prod_img_db, '../') === 0)) {
                                     $prod_path = strpos($prod_img_db, '../') === 0 ? $prod_img_db : '../' . $prod_img_db;
@@ -213,27 +197,37 @@ if (!$imagem_loja_path) {
                                     }
                                 }
                             }
-    
-                            echo '<div class="card">
-                                <img src="' . htmlspecialchars($prod_path) . '" alt="' . htmlspecialchars($p['nome']) . '" loading="lazy">
-                                <h3>' . htmlspecialchars($p['nome']) . '</h3>
-                                <p class="preco"><b>R$ ' . number_format($p['preco'], 2, ',', '.') . '</b></p>
-                                <button class="btn-comprar" 
-                                    data-produto="' . htmlspecialchars($p['nome']) . '" 
-                                    data-preco="' . htmlspecialchars($p['preco']) . '" 
-                                    data-imagem="' . htmlspecialchars($prod_path) . '">
-                                    Adicionar ao Carrinho
-                                </button>
-                            </div>';
+
+                            // garante que tamanho não vai dar erro
+                            $tamanho = $p['tamanho'] ?? "";
+
+                            echo '
+            <div class="card">
+                <img src="' . htmlspecialchars($prod_path) . '" alt="' . htmlspecialchars($p['nome']) . '" loading="lazy">
+
+                <h3>' . htmlspecialchars($p['nome']) . '</h3>
+
+                <p class="tamanho">Tamanho: ' . htmlspecialchars($tamanho) . '</p>
+
+                <p class="preco"><b>R$ ' . number_format($p['preco'], 2, ',', '.') . '</b></p>
+
+                <button class="btn-comprar" 
+                    data-produto="' . htmlspecialchars($p['nome']) . '" 
+                    data-preco="' . htmlspecialchars($p['preco']) . '" 
+                    data-imagem="' . htmlspecialchars($prod_path) . '"
+                    data-tamanho="' . htmlspecialchars($tamanho) . '">
+                    Adicionar ao Carrinho
+                </button>
+            </div>';
                         }
                     } else {
                         echo '<p>Nenhum produto cadastrado nesta loja.</p>';
                     }
-    
+
                     $conn->close();
                     ?>
-
                 </div>
+
 
             </div>
 
@@ -252,73 +246,6 @@ if (!$imagem_loja_path) {
 
         </section>
 
-        <section class="allprodutos" id="allprodutos">
-
-            <div id="lista-produtos" class="lista-produtos">
-                <?php
-                $sql = "SELECT * FROM produtos WHERE usuario_id = ? ORDER BY id DESC";
-                $stmtProdutos = $conn->prepare($sql);
-                $stmtProdutos->bind_param("i", $usuario_id);
-                $stmtProdutos->execute();
-                $result = $stmtProdutos->get_result();
-
-                if ($result && $result->num_rows > 0) {
-                    while ($p = $result->fetch_assoc()) {
-
-                        $prod_img_db = $p['imagem'] ?? '';
-                        $prod_path = null;
-
-                        $prod_candidates = [
-                            'uploads/loja/' . $prod_img_db,
-                            'uploads/lojas/' . $prod_img_db,
-                            'uploads/' . $prod_img_db,
-                            $prod_img_db,
-                        ];
-
-                        foreach ($prod_candidates as $c) {
-                            $physical = realpath(__DIR__ . "/../" . $c);
-                            if ($physical && file_exists($physical)) {
-                                $prod_path = '../' . $c;
-                                break;
-                            }
-                        }
-
-                        if (!$prod_path) {
-                            if ($prod_img_db && (strpos($prod_img_db, 'uploads/') === 0 || strpos($prod_img_db, '../') === 0)) {
-                                $prod_path = strpos($prod_img_db, '../') === 0 ? $prod_img_db : '../' . $prod_img_db;
-                            } else {
-                                $prod_path = '../uploads/default-prod.png';
-                                if (!file_exists(__DIR__ . '/../uploads/default-prod.png')) {
-                                    $prod_path = 'https://via.placeholder.com/300?text=Produto';
-                                }
-                            }
-                        }
-
-                        echo '<div class="card">
-                            <img src="' . htmlspecialchars($prod_path) . '" alt="' . htmlspecialchars($p['nome']) . '" loading="lazy">
-                            <h3>' . htmlspecialchars($p['nome']) . '</h3>
-                            <p class="preco"><b>R$ ' . number_format($p['preco'], 2, ',', '.') . '</b></p>
-                            <button class="btn-comprar" 
-                                data-produto="' . htmlspecialchars($p['nome']) . '" 
-                                data-preco="' . htmlspecialchars($p['preco']) . '" 
-                                data-imagem="' . htmlspecialchars($prod_path) . '">
-                                Adicionar ao Carrinho
-                            </button>
-                        </div>';
-                    }
-                } else {
-                    echo '<p>Nenhum produto cadastrado nesta loja.</p>';
-                }
-
-                $conn->close();
-                ?>
-
-            </div>
-
-            <span>Produtos</span>
-
-        </section>
-
         <section class="aboutme" id="aboutme"></section>
 
         <section class="location" id="location"></section>
@@ -332,37 +259,6 @@ if (!$imagem_loja_path) {
 <script src="../js/produtos.js"></script>
 <script src="../js/pegarProduto.js"></script>
 <!-- <script src="painelloja.js"></script> -->
-
-<!-- Painel de abas -->
-<!-- <script>
-    // Seleciona todos os itens do menu lateral
-    const menuItems = document.querySelectorAll(".nav ul li");
-
-    // Seleciona todas as seções dentro do main.page
-    const sections = document.querySelectorAll("main.page section");
-
-    menuItems.forEach(item => {
-        item.addEventListener("click", () => {
-
-            // Remove active de todos
-            menuItems.forEach(i => i.classList.remove("active"));
-            item.classList.add("active");
-
-            // Esconde todas as seções
-            sections.forEach(sec => sec.classList.remove("active"));
-
-            // Seleciona a aba correspondente
-            const target = item.getAttribute("data-target");
-            document.getElementById(target).classList.add("active");
-        });
-    });
-
-
-    // Ativar PRODUTOS ao abrir o painel
-    document.querySelector('[data-target="home"]').click();
-
-
-</script> -->
 
 <!-- Carrossel header -->
 <script>

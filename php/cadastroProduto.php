@@ -1,5 +1,5 @@
 <?php
-session_start(); // precisa para acessar o usuário logado
+session_start();
 require "./conexao_login.php";
 
 // Verifica se o usuário está logado
@@ -12,6 +12,9 @@ $usuario_id = $_SESSION['usuario_id'];
 // Recebe os dados do formulário
 $nome = $_POST['nome'];
 $preco = $_POST['preco'];
+
+// Recebe o tamanho (já vem como texto "37/38" ou "26/27" etc.)
+$tamanho = $_POST['tamanho'] ?? "";
 
 // Pasta onde a imagem será salva
 $pasta = "../uploads/produtos/";
@@ -43,13 +46,12 @@ if ($arquivo['size'] > $tamanhoMaximo) {
 // Move o arquivo para a pasta correta
 if (move_uploaded_file($arquivo['tmp_name'], $pasta . $nomeImagem)) {
 
-    // Caminho salvo no banco (caminho usado pelo navegador)
     $caminhoImagem = "uploads/produtos/" . $nomeImagem;
 
-    // Inserção no banco com o usuario_id
-    $sql = "INSERT INTO produtos (nome, preco, imagem, usuario_id) VALUES (?, ?, ?, ?)";
+    // Agora salva também o tamanho
+    $sql = "INSERT INTO produtos (nome, preco, tamanho, imagem, usuario_id) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sdsi", $nome, $preco, $caminhoImagem, $usuario_id);
+    $stmt->bind_param("sdssi", $nome, $preco, $tamanho, $caminhoImagem, $usuario_id);
 
     if ($stmt->execute()) {
         header("Location: ../painel.php?sucesso=1");

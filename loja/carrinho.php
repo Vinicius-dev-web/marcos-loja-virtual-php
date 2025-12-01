@@ -30,6 +30,11 @@ if (!$loja) {
 // define nome e telefone da loja
 $nome_loja = $loja['nome_fantasia'] ?? 'Loja';
 $telefone_loja = preg_replace('/\D/', '', $loja['telefone'] ?? '');
+
+if (strlen($telefone_loja) < 10) {
+    $telefone_loja = ""; // força erro para evitar link quebrado
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -114,17 +119,21 @@ $telefone_loja = preg_replace('/\D/', '', $loja['telefone'] ?? '');
                 total += parseFloat(p.preco);
 
                 lista.innerHTML += `
-                <div class="card">
-                    <img src="${p.imagem}" alt="${p.nome}">
-                    <div class="info-prod">
-                        <h3>${p.nome}</h3>
-                        <p>R$ ${parseFloat(p.preco).toFixed(2).replace(".", ",")}</p>
-                    </div>
-                    <button class="btn-excluir" data-index="${index}">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </div>
-            `;
+    <div class="card">
+        <img src="${p.imagem}" alt="${p.nome}">
+        <div class="info-prod">
+            <h3>${p.nome}</h3>
+
+            <p class="tamanho">Tamanho: ${p.tamanho || "—"}</p>
+
+            <p>R$ ${parseFloat(p.preco).toFixed(2).replace(".", ",")}</p>
+        </div>
+        <button class="btn-excluir" data-index="${index}">
+            <i class="bi bi-trash"></i>
+        </button>
+    </div>
+`;
+
             });
 
             totalSpan.innerText = "R$ " + total.toFixed(2).replace(".", ",");
@@ -178,9 +187,8 @@ $telefone_loja = preg_replace('/\D/', '', $loja['telefone'] ?? '');
             });
     }
 
-
     // ==============================
-    // FINALIZAR PEDIDO (CORRIGIDO)
+    // FINALIZAR PEDIDO
     // ==============================
     document.getElementById("btnFinalizar").addEventListener("click", async () => {
 
@@ -198,29 +206,32 @@ $telefone_loja = preg_replace('/\D/', '', $loja['telefone'] ?? '');
             return;
         }
 
-        let mensagem = "===== NOVO PEDIDO =====%0A%0A";
+        let mensagem = "===== NOVO PEDIDO =====\n\n";
         let total = 0;
 
         produtos.forEach(p => {
-            mensagem += `*${p.nome}* - R$ ${parseFloat(p.preco).toFixed(2).replace(".", ",")}%0A`;
+            mensagem += `*${p.nome}* - R$ ${parseFloat(p.preco).toFixed(2).replace(".", ",")}\n`;
             total += parseFloat(p.preco);
         });
 
-        mensagem += `%0A-------------------------%0A`;
-        mensagem += `*Total:* R$ ${total.toFixed(2).replace(".", ",")}%0A`;
+        mensagem += `\n-------------------------\n`;
+        mensagem += `*Total:* R$ ${total.toFixed(2).replace(".", ",")}\n`;
 
-        const link = `https://wa.me/${telefone}?text=${mensagem}`;
+        const mensagemFinal = encodeURIComponent(mensagem);
 
-        // Limpar carrinho no servidor
+        const link = `https://api.whatsapp.com/send?phone=${telefone}&text=${mensagemFinal}`;
+
+        // limpar o carrinho
         await fetch("../php/finalizar_pedido.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: "slug=<?php echo $slug ?>"
         });
 
-        // Redirecionar
+        // redirecionar
         window.location.href = link;
     });
+
 
 </script>
 

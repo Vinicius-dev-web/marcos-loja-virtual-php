@@ -27,6 +27,8 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/login.css">
 
+    <link rel="icon" href="Bolvier.png">
+
     <title>Criar loja</title>
 </head>
 
@@ -63,7 +65,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 
             <label class="telLabel" for="telLabel">
                 <i class="bi bi-telephone-fill"></i>
-                <input type="text" name="tel" id="telLabel" placeholder="Telefone" required>
+                <input type="text" name="tel" id="telLabel" placeholder="WhatsApp" required>
             </label>
 
             <label class="senhaLabel" for="senhaLabel">

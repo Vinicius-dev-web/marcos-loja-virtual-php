@@ -44,12 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->isSMTP();
         $mail->Host = "smtp.gmail.com";
         $mail->SMTPAuth = true;
-        $mail->Username = "bolviergames@gmail.com";
-        $mail->Password = "mixa ohjf hcff osbi";  // SENHA CERTA
+        $mail->Username = "bolvierteam@gmail.com";
+        $mail->Password = "nztd kcww fszx pzed";  // SENHA CERTA
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->setFrom("bolviergames@gmail.com", "Suporte Bolvier");
+        $mail->setFrom("bolvierteam@gmail.com", "BolvierTeam");
         $mail->addAddress($email);
         $mail->Subject = "Esqueceu a senha?";
         $mail->isHTML(true);

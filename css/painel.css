@@ -351,6 +351,66 @@ main {
             }
         }
 
+        label {
+            display: flex;
+            /* justify-content: space-between; */
+            gap: 20px;
+
+            cursor: text;
+
+            width: 30%;
+
+            background-color: var(--cor-fundo9);
+            border-radius: 100px;
+            border: 1px solid var(--cor-fundo5);
+
+            &:hover {
+                border: 1px solid var(--cor-fundo6);
+            }
+
+
+            i {
+                cursor: pointer;
+                padding: 20px;
+
+                border-radius: 100%;
+
+                color: var(--cor-texto1);
+                background-color: var(--cor-fundo5);
+
+                &:hover {
+                    background-color: var(--cor-fundo6);
+                }
+            }
+
+            input {
+
+                font-size: 15px;
+
+                color: var(--cor-texto2);
+
+                background: transparent;
+                border: none;
+                outline: none;
+
+                &::placeholder {
+                    color: var(--cor-borda2);
+                }
+
+                &:-webkit-autofill {
+                    -webkit-text-fill-color: #fff !important;
+
+                    box-shadow: 0 0 0 1000px var(--cor-fundo2) inset !important;
+
+                    border: none;
+                    border-radius: 0px;
+
+                }
+
+            }
+        }
+
+
         .tabela-container {
             width: 100%;
             margin: 40px 0;
@@ -541,19 +601,70 @@ main {
                             }
                         }
 
-                        .checkBoxes {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            width: 100%;
+                        .select-info-outfit {
 
-                            .checkBox {
+                            #tam-sapato,
+                            #tam-roupa {
+                                display: none;
+                            }
+
+                            .choose-option {
+
+                                width: 100%;
+                                padding: 10px;
+                                background-color: var(--cor-fundo9);
+
+                                border: 1px solid var(--cor-borda1);
+                                border-radius: 5px;
+
+                                outline: none;
+
+                                &:hover {
+                                    border: 1px solid var(--cor-loja3);
+                                }
+
+                                &:focus {
+                                    border: 1px solid var(--cor-loja3);
+                                }
+
+                            }
+
+                            .checkBoxes {
+                                margin: 10px 0px;
+                            }
+
+
+                            .checkBoxes {
                                 display: flex;
-                                gap: 20px;
+                                justify-content: space-between;
+                                align-items: center;
 
-                                .values {
+                                width: 100%;
+                                padding: 10px;
+                                background-color: var(--cor-fundo9);
+
+                                border: 1px solid var(--cor-borda1);
+                                border-radius: 5px;
+
+                                outline: none;
+
+                                &:hover {
+                                    border: 1px solid var(--cor-loja3);
+                                }
+
+                                &:focus {
+                                    border: 1px solid var(--cor-loja3);
+                                }
+
+                                .checkBox {
                                     display: flex;
-                                    gap: 5px;
+                                    flex-wrap: wrap;
+                                    gap: 20px;
+
+                                    .values {
+                                        display: flex;
+                                        gap: 5px;
+                                    }
                                 }
                             }
                         }
@@ -839,11 +950,6 @@ main {
 
         }
     }
-
-    .aboutme{}
-
-    .location{}
-
 }
 
 .loja {
