@@ -9,23 +9,24 @@ $erro = $_SESSION['erro_login'] ?? "";
 $msg_cadastro = $_SESSION['msg_cadastro'] ?? "";
 unset($_SESSION['erro_login'], $_SESSION['msg_cadastro']);
 
-// Conexão e pegar o slug da loja
 require "php/conexao.php";
 $usuario_id = $_SESSION['usuario_id'];
 
-// ADICIONADO → Buscar ID da loja e cor do tema
-$stmt = $conn->prepare("SELECT id, slug, imagem, cor_tema FROM lojas WHERE usuario_id = ?");
+// Buscar dados da loja
+$stmt = $conn->prepare("SELECT id, slug, imagem, cor_tema, nome_fantasia FROM lojas WHERE usuario_id = ?");
 $stmt->bind_param("i", $usuario_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $loja = $result->fetch_assoc();
 
-// ADICIONADO → Variáveis necessárias
+// Variáveis da loja
 $loja_id = $loja['id'] ?? "";
 $slug_loja = $loja['slug'] ?? "";
 $imagem_loja = $loja['imagem'] ?? "";
-$cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
+$cor_tema = $loja['cor_tema'] ?? "#000000";
+$nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -113,28 +114,25 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
         <section class="produtos" id="produtos">
 
             <div class="adm-user">
-
                 <div class="info-adm">
-
                     <?php if (!empty($imagem_loja)): ?>
-                    <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+                        <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
                     <?php endif; ?>
 
                     <h2>
                         Olá,
-                        <?php echo $_SESSION['usuario']; ?>!
+                        <?php echo htmlspecialchars($nome_loja); ?>!
                     </h2>
-
                 </div>
 
                 <button data-target="cog">Editar loja</button>
-
             </div>
+
 
             <label for="search">
 
-                <i class="bi bi-search"></i>
                 <input type="text" name="" id="search" placeholder="Pesquise aqui...">
+                <i class="bi bi-search"></i>
 
             </label>
 
@@ -318,59 +316,75 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
 
                 <form action="php/cadastroBanner.php" method="POST" enctype="multipart/form-data" class="form-banner">
 
-                    <label id="labelImagemBanner">
+                    <div class="banner-div">
 
-                        <i class="bi bi-card-image" id="iconeLabelBanner"></i>
+                        <label id="labelImagemBanner">
 
-                        <span id="textoLabelBanner">Coloque uma imagem*</span>
+                            <i class="bi bi-card-image" id="iconeLabelBanner"></i>
 
-                        <input type="file" name="imagem" accept="image/*" required hidden>
+                            <span id="textoLabelBanner">Coloque uma imagem*</span>
 
-                        <img id="previewImagemBanner">
+                            <input type="file" name="imagem" accept="image/*" required hidden>
 
-                    </label>
+                            <img id="previewImagemBanner">
+
+                        </label>
+
+                        <div class="remove-div">
+                            <?php
+                            // Buscar banners do usuário
+                            $stmtB = $conn->prepare("SELECT id, imagem FROM banners WHERE usuario_id = ?");
+                            $stmtB->bind_param("i", $usuario_id);
+                            $stmtB->execute();
+                            $resultB = $stmtB->get_result();
+
+                            while ($banner = $resultB->fetch_assoc()):
+                                ?>
+                                <div class="banner-item" data-id="<?php echo $banner['id']; ?>">
+                                    <img src="uploads/banners/<?php echo htmlspecialchars($banner['imagem']); ?>"
+                                        alt="Banner">
+                                    <button class="remover-banner" type="button">Remover</button>
+                                </div>
+                            <?php endwhile; ?>
+                        </div>
+
+                    </div>
 
                     <button type="submit">Cadastrar</button>
                 </form>
+
             </div>
         </section>
 
         <section class="cog" id="cog">
-
             <div class="form-div">
-
                 <h1>Personalizar</h1>
 
-                <form action="" method="POST" class="form-input">
+                <form action="atualizar_loja.php" method="POST" class="form-input" enctype="multipart/form-data">
 
                     <div class="values-create" id="values-create">
 
                         <div class="input-values-create">
 
-                            <input type="text" name="nome" placeholder="Nome da empresa*" maxlength="25">
+                            <input type="text" name="nome_fantasia" placeholder="Nome da empresa*" maxlength="25"
+                                required>
 
-                            <input type="text" name="" id="description-prod"
+                            <input type="text" name="descricao"
                                 placeholder="Descrição da loja. Ex.: Loja de Roupas e Sapatos 😎✌️👕👖👟">
-                            </textarea>
 
-
-                            <select name="" id="">
-
-                                <option value="">Sem descrição</option>
-                                <option value="">Roupas</option>
-                                <option value="">Sapatos</option>
-                                <option value="">Roupas e sapatos</option>
-                                <option value="">Eletrônicos</option>
-                                <option value="">Informática</option>
-                                <option value="">Eletrônicos e informática</option>
-                                <option value="">Diversos</option>
-
+                            <select name="categoria" required>
+                                <option value="Sem descrição">Sem descrição</option>
+                                <option value="Roupas">Roupas</option>
+                                <option value="Sapatos">Sapatos</option>
+                                <option value="Roupas e Sapatos">Roupas e sapatos</option>
+                                <option value="Eletrônicos">Eletrônicos</option>
+                                <option value="Informática">Informática</option>
+                                <option value="Eletrônicos e Informática">Eletrônicos e informática</option>
+                                <option value="Diversos">Diversos</option>
                             </select>
 
-
                         </div>
-                        <button type="submit">Cadastrar</button>
-
+                        <button type="submit">Salvar Alterações</button>
                     </div>
 
                     <label id="labelImagemCog">
@@ -381,14 +395,13 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
                         <input type="file" id="inputImagem" name="imagem" accept="image/*" hidden>
 
                         <img src="" alt="" id="previewImagemCog" hidden>
-
                     </label>
 
                 </form>
 
             </div>
-
         </section>
+
 
         <section class="loja" id="loja">
             <div class="msg" id="msg">
@@ -633,6 +646,37 @@ $cor_tema = $loja['cor_tema'] ?? "#000000"; // Valor padrão
             row.style.display = text.includes(filter) ? "" : "none";
         });
     });
+</script>
+
+<!-- remover Banner -->
+
+<script>
+    document.querySelectorAll(".remover-banner").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const bannerItem = this.closest(".banner-item");
+            const bannerId = bannerItem.getAttribute("data-id");
+
+            if (confirm("Deseja realmente remover este banner?")) {
+                fetch("php/removerBanner.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: "id=" + bannerId
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            bannerItem.remove(); // remove do HTML imediatamente
+                        } else {
+                            alert("Erro ao remover: " + data.msg);
+                        }
+                    })
+                    .catch(err => alert("Erro na requisição: " + err));
+            }
+        });
+    });
+
 </script>
 
 </html>

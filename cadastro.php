@@ -60,7 +60,7 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 
             <label class="emailLabel" for="emailLabel">
                 <i class="bi bi-envelope-fill"></i>
-                <input type="email" name="email" id="emailLabel" placeholder="Email" required>
+                <input type="email" name="email" id="emailLabel" placeholder="Email válido" required>
             </label>
 
             <label class="telLabel" for="telLabel">
