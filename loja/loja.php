@@ -186,7 +186,8 @@ if (empty($banners)) {
                     loading="lazy">
 
                 <h1>
-                    <?php echo htmlspecialchars($nome_loja) ?>
+                    <?php echo htmlspecialchars($nome_loja) ?><br>
+                    <span id="categoria-adm" style="font-size: 15px;">Eletrônicos</span>
                 </h1>
 
                 <!-- <label for="chat-shop-user" onclick="chatShopUser()">
@@ -195,6 +196,8 @@ if (empty($banners)) {
                 </label> -->
 
             </div>
+
+            
 
             <!-- ----------- Produtos ----------- -->
 

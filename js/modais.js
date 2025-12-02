@@ -1,15 +1,14 @@
 
-// function openMsgChat(){
+function openDestaque(){
 
-//     const msg = document.getElementById("chat-div");
+    const modal = document.getElementById("edit-destaque-create");
 
-//     msg.classList.add("abrir")
+    modal.classList.add("abrir");
 
-//     msg.addEventListener("click", (e) => {
+    modal.addEventListener("click", (e) =>{
 
-//         if(e.target.id == "close-chat-div"){
-
-//             msg.classList.remove("abrir")
-//         }
-//     })
-// }
+        if(e.target.id == "fechar"){
+            modal.classList.remove("abrir")
+        }
+    })
+}
