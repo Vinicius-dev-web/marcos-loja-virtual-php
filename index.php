@@ -20,8 +20,6 @@ require "./php/conexao.php"; // Uma única conexão para toda a página
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
 
-    <link rel="icon" href="Bolvier.png">
-
     <title>BolvierShop</title>
 
 </head>

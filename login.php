@@ -26,8 +26,6 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/login.css">
 
-    <link rel="icon" href="Bolvier.png">
-
     <title>Entrar</title>
 </head>
 

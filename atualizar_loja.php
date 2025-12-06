@@ -1,6 +1,6 @@
 <?php
 session_start();
-require __DIR__ . "/php/conexao.php"; // caminho CORRETO
+require __DIR__ . "/php/conexao.php";
 
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
@@ -11,31 +11,32 @@ $usuario_id = $_SESSION['usuario_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Campos do formulário
     $nome = trim($_POST['nome_fantasia'] ?? '');
     $descricao = trim($_POST['descricao'] ?? '');
     $categoria = trim($_POST['categoria'] ?? '');
+    $telefone = trim($_POST['telefone'] ?? '');
 
-    if (empty($nome) || empty($categoria)) {
-        $_SESSION['erro_loja'] = "Nome e categoria são obrigatórios.";
+    if (empty($nome) || empty($telefone) || empty($categoria)) {
+        $_SESSION['erro_loja'] = "Nome, telefone e categoria são obrigatórios.";
         header("Location: painel.php");
         exit;
     }
 
-    // Gera o slug a partir do nome
-    $slug = strtolower($nome);                  // Tudo minúsculo
-    $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug); // Remove caracteres especiais
-    $slug = preg_replace('/\s+/', '-', $slug);  // Espaços viram hífen
-    $slug = preg_replace('/-+/', '-', $slug);   // Remove hífens duplicados
-    $slug = trim($slug, '-');                   // Remove hífens do início/fim
+    // SLUG
+    $slug = strtolower($nome);
+    $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug);
+    $slug = preg_replace('/\s+/', '-', $slug);
+    $slug = preg_replace('/-+/', '-', $slug);
+    $slug = trim($slug, '-');
 
-    // Pasta para upload de imagens
     $pasta = "uploads/lojas/";
     if (!is_dir($pasta)) {
         mkdir($pasta, 0777, true);
     }
 
     try {
+
+        // SE TIVER IMAGEM
         if (!empty($_FILES['imagem']['name'])) {
             $nomeImg = uniqid() . "-" . basename($_FILES['imagem']['name']);
             $caminho = $pasta . $nomeImg;
@@ -47,30 +48,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "UPDATE lojas SET 
                         nome_fantasia = ?, 
                         descricao = ?, 
-                        cor_tema = ?, 
+                        categoria = ?, 
+                        telefone = ?,
                         slug = ?,
                         imagem = ?
                     WHERE usuario_id = ?";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssi", $nome, $descricao, $categoria, $slug, $nomeImg, $usuario_id);
+            $stmt->bind_param("ssssssi", $nome, $descricao, $categoria, $telefone, $slug, $nomeImg, $usuario_id);
 
         } else {
-
+            // SEM IMAGEM
             $sql = "UPDATE lojas SET 
                         nome_fantasia = ?, 
                         descricao = ?, 
-                        cor_tema = ?, 
+                        categoria = ?, 
+                        telefone = ?,
                         slug = ?
                     WHERE usuario_id = ?";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssssi", $nome, $descricao, $categoria, $slug, $usuario_id);
+            $stmt->bind_param("sssssi", $nome, $descricao, $categoria, $telefone, $slug, $usuario_id);
         }
 
         $stmt->execute();
-
         $_SESSION['sucesso_loja'] = "Loja atualizada com sucesso!";
+
     } catch (Exception $e) {
         $_SESSION['erro_loja'] = $e->getMessage();
     }

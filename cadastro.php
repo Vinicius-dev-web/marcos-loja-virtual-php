@@ -27,8 +27,6 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/login.css">
 
-    <link rel="icon" href="Bolvier.png">
-
     <title>Criar loja</title>
 </head>
 
@@ -49,13 +47,13 @@ unset($_SESSION['erro_login'], $_SESSION['msg_cadastro'], $_SESSION['slug_loja']
 
                 <input type="file" name="imagem" id="inputImagemRegister" accept="image/*" hidden required>
 
-                <img src="" alt="" id="previewImagemRegister" hidden>
+                <img id="previewImagemRegister">
 
             </label>
 
             <label class="nomeLabel" for="nomeLabel">
                 <i class="bi bi-person-fill"></i>
-                <input type="text" name="nome" id="nomeLabel" placeholder="Empresa" required>
+                <input type="text" name="nome" id="nomeLabel" placeholder="Empresa" maxlength="15" required>
             </label>
 
             <label class="emailLabel" for="emailLabel">

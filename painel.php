@@ -13,7 +13,7 @@ require "php/conexao.php";
 $usuario_id = $_SESSION['usuario_id'];
 
 // Buscar dados da loja
-$stmt = $conn->prepare("SELECT id, slug, imagem, cor_tema, nome_fantasia FROM lojas WHERE usuario_id = ?");
+$stmt = $conn->prepare("SELECT id, slug, imagem, cor_tema, nome_fantasia, telefone, categoria FROM lojas WHERE usuario_id = ?");
 $stmt->bind_param("i", $usuario_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -24,7 +24,9 @@ $loja_id = $loja['id'] ?? "";
 $slug_loja = $loja['slug'] ?? "";
 $imagem_loja = $loja['imagem'] ?? "";
 $cor_tema = $loja['cor_tema'] ?? "#000000";
-$nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
+$nome_loja = $loja['nome_fantasia'] ?? "";
+$categoria = $loja['categoria'] ?? "Sem descrição";
+$telefone = $loja['telefone'] ?? "Sem telefone";
 ?>
 
 
@@ -49,55 +51,128 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/painel.css">
 
-    <title>Painel de controle - Administativo</title>
+    <link rel="icon" href="uploads/lojas/<?php echo $imagem_loja; ?>">
+
+    <title>Painel de controle - Administrativo</title>
 
 </head>
 
 <body>
 
-    <div class="painel">
+    <aside class="painel">
 
         <div class="painel-info">
 
+            <div class="adm-site">
+                <div class="info-adm">
+
+                    <img src="Bolvier.png" alt="">
+                    
+
+                    <div>
+                        <div class="title-start-user">
+                            <h2>
+                                <span>BolvierTeam</span>
+                            </h2>
+                        </div>
+                        <h6 id="descrição_loja">
+                            <span>Painel Administrativo</span>
+                        </h6>
+                    </div>
+                </div>
+
+                <!-- <button data-target="cog">Editar loja</button> -->
+            </div>
+
             <ul>
-                <li data-target="produtos">
+                <li data-target="dashboard">
                     <i class="bi bi-grid-1x2-fill"></i>
-                    <span>PAINEL</span>
+                    <span><b>PAINEL</b></span>
+                </li>
+                <li data-target="produtos">
+                    <i class="bi bi-box-seam-fill"></i>
+                    <span><b>PRODUTOS</b></span>
                 </li>
                 <li data-target="create">
                     <i class="bi bi-plus-square-fill"></i>
-                    <span>CRIAR</span>
+                    <span><b>CRIAR</b></span>
                 </li>
                 <li data-target="cog">
                     <i class="bi bi-brush-fill"></i>
-                    <span>Aparência</span>
+                    <span><b>Aparência</b></span>
                 </li>
                 <li data-target="loja" id="menuLoja">
                     <i class="bi bi-globe"></i>
-                    <span>Minha Loja</span>
+                    <span><b>Minha Loja</b></span>
                 </li>
-                <li data-target="" id="">
+                <!-- <li data-target="" id="">
                     <i class="las la-crown"></i>
                     <span>VIP</span>
-                </li>
+                </li> -->
             </ul>
 
         </div>
 
+        <div class="info-loja-painel">
 
-        <div class="logout" id="logout" onclick="window.location.href='php/logout.php'">
-            <i class="bi bi-box-arrow-right"></i>
-            <span>SAIR</span>
+            <div class="adm-user">
+                <div class="info-adm">
+                    <?php if (!empty($imagem_loja)): ?>
+                    <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+                    <?php endif; ?>
+
+                    <div>
+                        <div class="title-start-user">
+                            <h2>
+                                <?php echo htmlspecialchars($nome_loja); ?>
+                            </h2>
+                        </div>
+                        <h6 id="descrição_loja">
+                            <?php echo htmlspecialchars($categoria); ?>
+                        </h6>
+                    </div>
+                </div>
+
+                <!-- <button data-target="cog">Editar loja</button> -->
+            </div>
+
+            <div class="logout" id="logout" onclick="window.location.href='php/logout.php'">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>SAIR</span>
+            </div>
+
         </div>
 
-    </div>
 
-    <nav class="main-content">
+    </aside>
 
-        <div class="adm-info-up">
+    <nav class="main-content" style="display: none;">
+
+        <div class="adm-user">
+            <div class="info-adm">
+                <?php if (!empty($imagem_loja)): ?>
+                <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
+                <?php endif; ?>
+
+                <div>
+                    <div class="title-start-user">
+                        <h2>
+                            <?php echo htmlspecialchars($nome_loja); ?>>
+                        </h2>
+                    </div>
+                    <h6 id="descrição_loja">
+                        <?php echo htmlspecialchars($categoria); ?>
+                    </h6>
+                </div>
+            </div>
+
+            <!-- <button data-target="cog">Editar loja</button> -->
+        </div>
+
+        <!-- <div class="adm-info-up">
             <h2>Painel de controle</h2>
             <span>Administrativo</span>
-        </div>
+        </div> -->
 
         <div class="info-now-up">
             <span id="dataAtual"></span>
@@ -111,23 +186,122 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
     <main class="page">
 
+        <section class="dashboard" id="dashboard">
+
+            <h1>
+                <b>
+                    Bem-vindo de volta,
+                    <?php echo htmlspecialchars($nome_loja); ?>
+                </b>
+            </h1>
+
+            <span>Aqui estão todos os seus marcus e suas performaces na loja</span>
+
+            <div class="dash-cards" id="dash-cards">
+
+
+                <div class="card">
+                    <h3>Estoque</h3>
+
+                    <h2><b>22</b></h2>
+                </div>
+                <div class="card">
+                    <h3>Pedidos realizados</h3>
+
+                    <h2><b>40</b></h2>
+                </div>
+                <div class="card">
+                    <h3>Ganhos totais</h3>
+
+                    <h2><b>R$1.459,90</b></h2>
+                </div>
+
+            </div>
+
+            <div class="form-div">
+
+                <!-- <div class="tabela-container">
+                    <table class="tabela-estilo">
+
+
+                        <thead>
+
+                            <tr>
+                                <th>Foto</th>
+                                <th>Produto</th>
+                                <th>Preço</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                        require "php/conexao.php";
+
+                        $usuario_id = $_SESSION['usuario_id'];
+                        $sql = "SELECT * FROM produtos WHERE usuario_id = $usuario_id ORDER BY id DESC";
+                        $result = $conn->query($sql);
+
+                        if ($result && $result->num_rows > 0) {
+                            while ($p = $result->fetch_assoc()) {
+                                echo "<tr>
+    <td><img src='" . $p['imagem'] . "' width='60'></td>
+    <td>" . $p['nome'] . "</td>
+    <td>R$ " . number_format($p['preco'], 2, ',', '.') . "</td>
+
+</tr>";
+
+                            }
+                        } else {
+                            echo "<tr><td colspan='6'>Nenhum produto cadastrado.</td></tr>";
+                        }
+                        ?>
+
+                        </tbody>
+                    </table>
+                </div> -->
+
+                <div class="infos-user">
+
+                    <h2>Informações da loja</h2>
+
+                    <div class="table-infos-user">
+
+                        <span><b>Nome da loja:</b> <?php echo htmlspecialchars($nome_loja); ?></span>
+
+                        <span><b>WhatsApp:</b> <?php echo htmlspecialchars($telefone); ?></span>
+
+                        <span><b>Localização:</b> <i>Sem localização definida.</i></span>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
         <section class="produtos" id="produtos">
 
-            <div class="adm-user">
+            <!-- <div class="adm-user">
                 <div class="info-adm">
                     <?php if (!empty($imagem_loja)): ?>
                     <img src="uploads/lojas/<?php echo $imagem_loja; ?>" alt="Foto da loja">
                     <?php endif; ?>
 
-                    <h2>
-                        Olá,
-                        <?php echo htmlspecialchars($nome_loja); ?>!
-                    </h2>
+                    <div>
+                        <div class="title-start-user">
+                            Olá,
+                            <?php echo htmlspecialchars($nome_loja); ?> VINI!
+                        </div>
+                        <h4 id="descrição_loja">
+                            <?php echo htmlspecialchars($categoria); ?>
+                            Informática
+                        </h4>
+                    </div>
                 </div>
 
                 <button data-target="cog">Editar loja</button>
-            </div>
+            </div> -->
 
+            <h1>Produtos</h1>
 
             <label for="search">
 
@@ -147,7 +321,6 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
                             <th>Produto</th>
                             <th>Preço</th>
                             <th>Tamanho</th>
-                            <th>Hora</th>
                             <th>Editar</th>
                         </tr>
                     </thead>
@@ -166,7 +339,6 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
     <td>" . $p['nome'] . "</td>
     <td>R$ " . number_format($p['preco'], 2, ',', '.') . "</td>
     <td>" . $p['tamanho'] . "</td>
-    <td>" . date('H:i', strtotime($p['data_criacao'])) . "</td>
     <td>
         <button class='btn-editar' onclick='editarProduto(" . $p['id'] . ", \"" . addslashes($p['nome']) . "\", " . $p['preco'] . ")'>
             <span>Editar</span>
@@ -186,44 +358,9 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
         <section class="create" id="create">
 
+            <h1>Novo produto</h1>
 
             <div class="form-div" id="file-create">
-
-                <h1>Categorias</h1>
-
-                <form action="" class="form-categoria">
-
-                    <div class="categoria-destaque">
-
-                        <div class="destaque" id="destaque" onclick="openDestaque()">
-                            <img src="Bolvier.png" alt="">
-                            <h4>Destaque</h4>
-                        </div>
-                        <div class="destaque" id="destaque" onclick="openDestaque()">
-                            <img src="Bolvier.png" alt="">
-                            <h4>Destaque</h4>
-                        </div>
-                        <div class="destaque" id="destaque" onclick="openDestaque()">
-                            <img src="Bolvier.png" alt="">
-                            <h4>Destaque</h4>
-                        </div>
-                        <div class="destaque" id="destaque" onclick="openDestaque()">
-                            <img src="Bolvier.png" alt="">
-                            <h4>Destaque</h4>
-                        </div>
-                        <div class="destaque" id="destaque" onclick="openDestaque()">
-                            <img src="Bolvier.png" alt="">
-                            <h4>Destaque</h4>
-                        </div>
-                        <div class="destaque" id="destaque" onclick="openDestaque()">
-                            <img src="Bolvier.png" alt="">
-                            <h4>Destaque</h4>
-                        </div>
-                    </div>
-
-                </form>
-
-                <h1>Produto</h1>
 
                 <form action="php/cadastroProduto.php" method="POST" enctype="multipart/form-data" class="form-prod">
 
@@ -249,11 +386,11 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
                                 <!-- SELECT PRINCIPAL -->
                                 <select class="choose-option" id="choose-option">
-                                    <option value="">Selecione</option>
-                                    <option value="roupa-infantil">Roupa Infantil</option>
-                                    <option value="sapato-infantil">Sapato Infantil</option>
+                                    <option value="">Tipo (opcional)</option>
                                     <option value="roupa">Roupa Adulto</option>
+                                    <option value="roupa-infantil">Roupa Infantil</option>
                                     <option value="sapato">Sapato Adulto</option>
+                                    <option value="sapato-infantil">Sapato Infantil</option>
                                 </select>
 
 
@@ -346,7 +483,7 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
                 </form>
 
-                <h1>Banner</h1>
+                <!-- <h1>Banner</h1>
 
                 <form action="php/cadastroBanner.php" method="POST" enctype="multipart/form-data" class="form-banner">
 
@@ -379,27 +516,27 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
                             while ($banner = $resultB->fetch_assoc()):
                                 ?>
-                            <div class="banner-item" data-id="<?php echo $banner['id']; ?>">
-                                <img src="uploads/banners/<?php echo htmlspecialchars($banner['imagem']); ?>"
-                                    alt="Banner">
-                                <button class="remover-banner" type="button">Remover</button>
-                            </div>
+                                <div class="banner-item" data-id="<?php echo $banner['id']; ?>">
+                                    <img src="uploads/banners/<?php echo htmlspecialchars($banner['imagem']); ?>"
+                                        alt="Banner">
+                                    <button class="remover-banner" type="button">Remover</button>
+                                </div>
                             <?php endwhile; ?>
                         </div>
 
                     </div>
 
 
-                </form>
+                </form> -->
 
             </div>
         </section>
 
         <section class="cog" id="cog">
 
-            <div class="form-div">
+            <h1>Personalizar</h1>
 
-                <h1>Personalizar</h1>
+            <div class="form-div">
 
                 <form action="atualizar_loja.php" method="POST" class="form-input" enctype="multipart/form-data">
 
@@ -407,22 +544,36 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
                         <div class="input-values-create">
 
-                            <input type="text" name="nome_fantasia" placeholder="Nome da empresa*" maxlength="25"
-                                required>
+                            <input type="text" name="nome_fantasia" value="<?php echo htmlspecialchars($nome_loja); ?>"
+                                maxlength="12" required>
 
-                            <input type="text" name="descricao"
-                                placeholder="Descrição da loja. Ex.: Loja de Roupas e Sapatos 😎✌️👕👖👟">
+                            <input type="text" name="telefone" id="telLabel" value="<?php echo htmlspecialchars($telefone); ?>">
 
-                            <select name="categoria-adm" id="categoria-adm" required>
-                                <option value="Sem descrição">Sem descrição</option>
-                                <option value="Roupas">Roupas</option>
-                                <option value="Sapatos">Sapataria</option>
-                                <option value="Roupas e Sapatos">Roupas e sapatos</option>
-                                <option value="Eletrônicos">Eletrônicos</option>
-                                <option value="Informática">Informática</option>
-                                <option value="Eletrônicos e Informática">Eletrônicos e informática</option>
-                                <option value="Diversos">Diversos</option>
+
+                            <!-- <input type="text" name="descricao"placeholder="Descrição"
+                                value="<?php echo htmlspecialchars($loja['descricao'] ?? ''); ?>"> -->
+
+                            <select name="categoria" id="categoria" required>
+                                <option value="Sem descrição" <?=($categoria=="Sem descrição" ? "selected" : "" ) ?>>Sem
+                                    descrição</option>
+                                <option value="Roupas" <?=($categoria=="Roupas" ? "selected" : "" ) ?>>Roupas</option>
+                                <option value="Sapatos" <?=($categoria=="Sapatos" ? "selected" : "" ) ?>>Sapataria
+                                </option>
+                                <option value="Roupas e Sapatos" <?=($categoria=="Roupas e Sapatos" ? "selected" : "" )
+                                    ?>>Roupas e sapatos</option>
+                                <option value="Eletrônicos" <?=($categoria=="Eletrônicos" ? "selected" : "" ) ?>>
+                                    Eletrônicos</option>
+                                <option value="Informática" <?=($categoria=="Informática" ? "selected" : "" ) ?>>
+                                    Informática</option>
+                                <option value="Eletrônicos e Informática" <?=($categoria=="Eletrônicos e Informática"
+                                    ? "selected" : "" ) ?>>Eletrônicos e informática</option>
+                                <option value="Diversos" <?=($categoria=="Diversos" ? "selected" : "" ) ?>>Diversos
+                                </option>
                             </select>
+
+
+                            <input type="hidden" name="loja_id" value="<?php echo $loja_id; ?>">
+
 
                         </div>
                         <button type="submit">Salvar Alterações</button>
@@ -435,14 +586,13 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 
                         <input type="file" id="inputImagem" name="imagem" accept="image/*" hidden>
 
-                        <img src="" alt="" id="previewImagemCog" hidden>
+                        <img id="previewImagemCog">
                     </label>
 
                 </form>
 
             </div>
         </section>
-
 
         <section class="loja" id="loja">
             <div class="msg" id="msg">
@@ -465,6 +615,7 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
             <div class="form">
 
                 <input type="hidden" id="edit-id">
+
                 <label>
                     <i class="bi bi-pencil"></i>
                     <input type="text" id="edit-nome" placeholder="Nome do produto" maxlength="25">
@@ -501,9 +652,9 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
                 <input type="file" name="" id="imageDestaqueEdit" hidden>
 
                 <i class="bi bi-card-image"></i>
-                
+
                 <span>Adicione uma imagem*</span>
-                
+
                 <img src="" alt="" id="previewImagemDestaqueEdit">
 
             </label>
@@ -518,6 +669,37 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
         </form>
     </div>
 
+    <!-- Menu Mobile  -->
+
+    <div class="menu-mobile">
+
+        <ul class="mobile-menu">
+
+            <li data-target="produtos">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>PAINEL</span>
+            </li>
+            <li data-target="create">
+                <i class="bi bi-plus-square-fill"></i>
+                <span>CRIAR</span>
+            </li>
+            <li data-target="cog">
+                <i class="bi bi-brush-fill"></i>
+                <span>EDITAR</span>
+            </li>
+            <li data-target="loja" id="menuLoja">
+                <i class="bi bi-globe"></i>
+                <span>LOJA</span>
+            </li>
+            <!-- <li data-target="" id="">
+                    <i class="las la-crown"></i>
+                    <span>VIP</span>
+                </li> -->
+        </ul>
+
+
+    </div>
+
 </body>
 
 <script src="js/painel.js"></script>
@@ -525,6 +707,23 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 <script src="js/editTable.js"></script>
 <script src="js/links.js"></script>
 <script src="js/modais.js"></script>
+
+<!--  -->
+
+<script>
+    document.getElementById("telLabel").addEventListener("input", function () {
+        let v = this.value.replace(/\D/g, "");
+        if (v.length > 11) v = v.slice(0, 11);
+
+        if (v.length > 6) {
+            this.value = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+        } else if (v.length > 2) {
+            this.value = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+        } else {
+            this.value = v;
+        }
+    });
+</script>
 
 <!-- Tema / Modo claro/escuro -->
 <script>
@@ -570,7 +769,6 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
 </script>
 
 <script>
-
     document.getElementById("labelImagemProd").addEventListener("change", function (event) {
         const file = event.target.files[0];
 
@@ -589,26 +787,9 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
             reader.readAsDataURL(file);
         }
     });
+</script>
 
-    document.getElementById("labelImagemBanner").addEventListener("change", function (event) {
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const preview = document.getElementById("previewImagemBanner");
-                preview.src = e.target.result;
-                preview.style.display = "block";
-
-                document.getElementById("iconeLabelBanner").style.display = "none";
-                document.getElementById("textoLabelBanner").style.display = "none";
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
-
+<script>
     document.getElementById("labelImagemCog").addEventListener("change", function (event) {
         const file = event.target.files[0];
 
@@ -627,7 +808,6 @@ $nome_loja = $loja['nome_fantasia'] ?? ""; // <== adicionada
             reader.readAsDataURL(file);
         }
     });
-
 </script>
 
 <!-- Select roupas/sapatos -->
